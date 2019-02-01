@@ -18,3 +18,10 @@ Route::view('/seguridad','secure')->name('secure');
 Auth::routes();
 //Admin
 Route::get('/home', 'HomeController@index')->name('dashboard');
+//Files
+Route::get('archivos/{type}', 'FilesController@index');
+Route::get('archivos/subir', 'FilesController@sowFileFrom');
+Route::get('archivos/subir', 'FilesController@store');
+Route::get('archivos/editar/{id}', 'FilesController@edit');
+Route::get('archivos/eliminar/{id}', 'FilesController@destroy');
+

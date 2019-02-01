@@ -1,6 +1,8 @@
 {
     "files.associations":{
-        "*.blade.php": "html",
-     }
+        ".blade.php": "html",
+    },
+    "workbench.colorTheme": "Default Dark+",
+    "editor.fontSize": 13
 
 }

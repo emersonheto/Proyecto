@@ -51,13 +51,28 @@
                             <a class="dropdown-item" href="{{ route('secure')}}">Preguntas frecuentes</a>
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <a href=" {{ route('login') }} " class="btn btn-outline-primary">Ingresar</a>
-                    </li>
+                        @guest
+                            <li class="nav-item">
+                                <a href=" {{ route('login')}} " class="btn btn-outline-primary">Ingresar</a>
+                            </li>
+                        @else
+                            <li>
+                                <a href=" {{route('logout')}} " class="logout btn btn-outline-danger" 
+                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                    <i class="fas fa-power-off">
+                                    </i> Cerrar sesión
+                                </a>
+                            </li>
+                        @endguest
                 </ul>
             </div>
         </nav>
     </header>
+
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+
 
     @yield('content')
 
@@ -92,13 +107,6 @@
                 <img class="img-fluid" src="http://3.bp.blogspot.com/-oumQWdMsBL8/Vh94mt2nYLI/AAAAAAAAANQ/qPwSgz1YgJc/s400/Payment%2BCard%2BNetworks%2BLogo.jpg">
             </div>
     </footer>
-
-    <!-- Optional JavaScript -->
-    <!--         
-         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-        -->
 </body>
 
 </html>

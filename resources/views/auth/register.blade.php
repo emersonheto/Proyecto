@@ -4,6 +4,7 @@
 <main role="main">
     <section class="jumbotron  text-center mb-0">
         <div class="row pt-5 ">
+
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-8">
@@ -85,6 +86,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 </main>

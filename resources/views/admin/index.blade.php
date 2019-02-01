@@ -1,74 +1,75 @@
 @extends('admin.layouts.app')
 @section('content')
-<!-- Page Content Holder -->
-        <div id="content">
+<!-- Page Content Holder  ESTO ESTA DENTRO DEL wrapper-->
+<div id="content">
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
 
-                    <button type="button" id="sidebarCollapse" class="navbar-btn">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
+            <button type="button" id="sidebarCollapse" class="navbar-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
 
-                    <div id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a>Panel administrativo</a>
-                            </li>
-                        </ul>
+            <div id="navbarSupportedContent">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a>Panel administrativo</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="panel panel-container container shadow-sm">
+        <div class="row">
+            <div class="col-sm-6 col-md-3 col-lg-3 no-padding">
+                <div class="panel  panel-widget border-right">
+       <div class="row no-padding"><i class="fas fa-eye"></i>
+                        <div class="large">120</div>
+       <div class="dashboard-small"></div>
                     </div>
                 </div>
-            </nav>
-
-	         <div class="panel panel-container container shadow-sm">
-					<div class="row">
-						<div class="col-sm-6 col-md-3 col-lg-3 no-padding">
-							<div class="panel  panel-widget border-right">
-								<div class="row no-padding"><i class="fas fa-eye"></i>
-									<div class="large">120</div>
-									<div class="dashboard-small">Visitantes</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-md-3 col-lg-3 no-padding ">
-							<div class="panel panel-widget border-right">
-								<div class="row no-padding"><i class="fas fa-file-upload"></i></em>
-									<div class="large">96</div>
-									<div class="dashboard-small">Archivos</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-md-3 col-lg-3 no-padding">
-							<div class="panel  panel-widget border-right">
-								<div class="row no-padding"><em class="fa fa-xl fa-users color-teal"></em>
-									<div class="large">13</div>
-									<div class="dashboard-small">Usuarios</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-md-3 col-lg-3 no-padding">
-							<div class="panel  panel-widget ">
-								<div class="row no-padding"><em class="fa fa-xl fa-search color-red"></em>
-									<div class="large">25.2k</div>
-									<div class="dashboard-small">Páginas vistas</div>
-								</div>
-							</div>
-						</div>
-					</div><!--/.row-->
-				</div>
-
-				<div class="mt-5 row">
-					<div class="col-md-6 mt-5">
-						<canvas id="line-chart" width="100%" height="100%"></canvas>
-					</div>
-					<div class="col-md-6 mt-5">
-						<canvas id="pie-chart" width="100%"></canvas>
-					</div>
-				</div>
-
+            </div>
+            <div class="col-sm-6 col-md-3 col-lg-3 no-padding ">
+                <div class="panel panel-widget border-right">
+                    <div class="row no-padding"><i class="fas fa-file-upload"></i></em>
+                        <div class="large">96</div>
+                        <div class="dashboard-small">Archivos</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3 col-lg-3 no-padding">
+                <div class="panel  panel-widget border-right">
+                    <div class="row no-padding"><em class="fa fa-xl fa-users color-teal"></em>
+                        <div class="large">13</div>
+                        <div class="dashboard-small">Usuarios</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3 col-lg-3 no-padding">
+                <div class="panel  panel-widget ">
+                    <div class="row no-padding"><em class="fa fa-xl fa-search color-red"></em>
+                        <div class="large">25.2k</div>
+                        <div class="dashboard-small">Páginas vistas</div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <!--/.row-->
+    </div>
+
+    <div class="mt-5 row">
+        <div class="col-md-6 mt-5">
+            <canvas id="line-chart" width="100%" height="100%"></canvas>
+        </div>
+        <div class="col-md-6 mt-5">
+            <canvas id="pie-chart" width="100%"></canvas>
+        </div>
+    </div>
+
+</div>
 
 
 @endsection
