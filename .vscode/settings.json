@@ -2,7 +2,7 @@
     "files.associations":{
         ".blade.php": "html",
     },
-    "workbench.colorTheme": "Default Dark+",
+    "workbench.colorTheme": "Material Theme Darker High Contrast",
     "editor.fontSize": 13
 
 }
