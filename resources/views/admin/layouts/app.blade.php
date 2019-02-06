@@ -27,7 +27,7 @@
     <div class="wrapper">
         <!-- Sidebar Holder -->
         <nav id="sidebar">
-            <a class="navbar-brand ml-4" href="#">
+            <a class="navbar-brand ml-4 pt-4" href="#">
                 <img src=" {{ asset('img/logo-white.svg') }} " width="30" height="30" class="d-inline-block align-top"
                     alt="">
                 BuffaloSafe
