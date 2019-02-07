@@ -68,7 +68,7 @@ class FilesController extends Controller
          $file=$request->file('file');
          
          
-         $name=$file->getClientOriginalName();
+         $name=time().$file->getClientOriginalName();
          //$name=time().$file->getClientOriginalExtension();
          $ext=$file->getClientOriginalExtension();
          $type=$this->getType($ext);
@@ -92,6 +92,23 @@ class FilesController extends Controller
             return back()->with('info',['success','El archivo se ha subido correctamente']);     
         }else{
             return back()->withErrors(['SQLerror'=>'No se pudo guardar archivo en carpeta']);
+        }
+    }
+    public $rutaDelArchivo='';
+    public function destroy($id)
+    { 
+        $file=File::findOrFail($id);
+        $rutaDelArchivo='/public/'.$this->getUserFolder().'/'.$file->type.'/'.$file->name.'.'.$file->extension;
+
+       
+        
+        if (Storage::disk('local')->exists($rutaDelArchivo)) 
+        {
+           if (Storage::disk('local')->delete($rutaDelArchivo))
+           {
+                $file->delete();
+                return back()->with('info',['success','El archivo se eliminó correctamente']);
+           }
         }
     }
 

@@ -8,6 +8,7 @@
 			<label for="file">
 				Selecciona un archivo para subirlo
 			</label>
+			{{-- 	 --}}
 			<input type="file" class="form-control-file" name="file" required>
 
 		</div>

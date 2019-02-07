@@ -30,6 +30,6 @@ Route::get('archivos/documentos', 'FilesController@documents')->name('file.docum
 
 
 Route::post('archivos/subir', 'FilesController@store')->name('file.store');
-Route::post('archivos/editar/{id}', 'FilesController@edit');
-Route::post('archivos/eliminar/{id}', 'FilesController@destroy');
+//Route::post('archivos/editar/{id}', 'FilesController@edit');
+Route::patch('archivos/eliminar/{id}', 'FilesController@destroy')->name('file.destroy');
 
