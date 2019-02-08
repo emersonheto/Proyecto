@@ -3,6 +3,7 @@
         ".blade.php": "html",
     },
     "workbench.colorTheme": "Material Theme Darker High Contrast",
-    "editor.fontSize": 13
+    "editor.fontSize": 13,
+    
 
 }
