@@ -68,7 +68,7 @@ class FilesController extends Controller
          $file=$request->file('file');
          
          
-         $name=time().$file->getClientOriginalName();
+         $name=$file->getClientOriginalName();
          //$name=time().$file->getClientOriginalExtension();
          $ext=$file->getClientOriginalExtension();
          $type=$this->getType($ext);
@@ -94,13 +94,11 @@ class FilesController extends Controller
             return back()->withErrors(['SQLerror'=>'No se pudo guardar archivo en carpeta']);
         }
     }
-    public $rutaDelArchivo='';
+  
     public function destroy($id)
     { 
         $file=File::findOrFail($id);
-        $rutaDelArchivo='/public/'.$this->getUserFolder().'/'.$file->type.'/'.$file->name.'.'.$file->extension;
-
-       
+        $rutaDelArchivo='/public/'.$this->getUserFolder().'/'.$file->type.'/'.$file->name.'.'.$file->extension;      
         
         if (Storage::disk('local')->exists($rutaDelArchivo)) 
         {

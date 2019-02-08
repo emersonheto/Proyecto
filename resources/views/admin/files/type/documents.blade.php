@@ -3,6 +3,9 @@
 @section('content')
 
 <div class="container">
+        {{-- {{ dd(storage_path()) }}  --}}
+         {{-- {{ storage_path().$folder}}
+         {{ asset('storage') }}  --}}
     <div class="row">
         <div class="col-sm-12 table-responsive">
             <table class='table table-hover'>
@@ -20,16 +23,16 @@
                     <tr>
                         <th scope='row'> 
                         @if ($document->extension=='pdf'|| $document->extension=='pdf')
-                            <img class='img-responsive' width="40px" src=" {{ asset('img/files/pdf.svg') }} " alt="">    
+                            <img class='img-responsive' width="30px" src=" {{ asset('img/files/pdf.svg') }} " alt="">    
                         @endif
                         @if ($document->extension=='xlsx'|| $document->extension=='XLSX')
-                            <img class='img-responsive'width="40px" src=" {{ asset('img/files/excel.svg') }} " alt="">    
+                            <img class='img-responsive'width="30px" src=" {{ asset('img/files/excel.svg') }} " alt="">    
                         @endif
                         @if ($document->extension=='docx'|| $document->extension=='DOCX')
-                            <img class='img-responsive'width="40px" src=" {{ asset('img/files/word.svg') }} " alt="">    
+                            <img class='img-responsive'width="30px" src=" {{ asset('img/files/word.svg') }} " alt="">    
                         @endif     
                         @if ($document->extension=='doc'|| $document->extension=='DOC')
-                            <img class='img-responsive'width="40px" src=" {{ asset('img/files/word.svg') }} " alt="">    
+                            <img class='img-responsive'width="30px" src=" {{ asset('img/files/word.svg') }} " alt="">    
                         @endif                            
 
                         </th>
@@ -37,13 +40,12 @@
                         <th scope='row'> {{ $document->created_at->DiffForHumans()}} </th>
                         <th scope='row'>
                         @if ($document->extension=='pdf'|| $document->extension=='PDF')
-                            <a class='btn btn-primary ' style="width: 80%;" target="_blank" 
-                            href="{{ asset('storage') }}/{{$folder}}/document/{{$document->name}}.{{ $document->extension}}">
-                            <i class="fas fa-eye"></i> Ver</a>
+                            <a class='btn btn-primary ' style="width:89%;" target="_blank" href="{{ asset('storage') }}/{{$folder}}/document/{{$document->name}}.{{ $document->extension}}">
+                            <i class="fas  fa-1x fa-eye"></i> Ver</a>                          
                         @else
-                            <a class='btn btn-primary' style="width:80%;"  target="_blank" 
-                            href="{{ asset('storage') }}/{{$folder}}/document/{{$document->name}}.{{ $document->extension}}">
-                            <i class="fas fa-download "></i> Descargar</a> 
+                            <a class='btn btn-primary'  style="width: 89%;"  target="_blank" href="{{ asset('storage') }}/{{$folder}}/document/{{$document->name}}.{{ $document->extension}}">
+                                Descargar <i class="fas fa-1x fa-download "></i>
+                            </a> 
                         @endif
                         </th>
                         <th scope="row">
@@ -61,5 +63,5 @@
            </div>
         </div>        
     </div>
-</div>
+
 @endsection
