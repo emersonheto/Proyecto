@@ -12,6 +12,7 @@
                     <input type="hidden" name="_method" value='PATCH'>
                     <button type="submit" class='btn btn-danger float-right' ><i class="fas fa-trash">Eliminar</i></button>                
                 </form>             --}}
+                {{-- BUTTON --}}
                 <button type="submit" class='btn btn-danger mt-1 float-right' data-toggle="modal" data-target="#deleteModal" >
                     <i class="fas fa-trash">Eliminar</i></button>  
                     
@@ -40,6 +41,8 @@
                                 </div>
                             </div>
                         </div>  
+                    {{-- FIN MODAL--}}
+
 
             </div>
         @empty
