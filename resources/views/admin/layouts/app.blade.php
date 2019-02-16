@@ -34,13 +34,13 @@
             </a>
 
             <div class="container mt-4 mb-2">
-                <div class="mb-2">
-                    <img src=" {{asset('img/users/user.jpg')}} " class="img-responsive" style="border-radius: 50%;" alt=""
-                        width="70">
+                <div class="mb-2  ml-5">
+                    <img src=" {{asset('img')}}/{{Auth::User()->image}}" class="img-responsive" style="border-radius: 50%;" alt=""
+                        width="90">
                 </div>
                 <div class="profile-usertitle">
-                    <div class="profile-usertitle-name">Brayan Angarita</div>
-                    <div class="profile-usertitle-status">admin@admin.com</div>
+                    <div class="profile-usertitle-name text-center"> {{ Auth::User()->name }} </div>
+                    <div class="profile-usertitle-status text-center">{{ Auth::User()->email }}</div>
                 </div>
             </div>
 
@@ -115,10 +115,10 @@
                             class="fas fa-users"></i> Usuarios</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                         <li>
-                            <a href="#">Ver todos</a>
+                            <a href="{{ route('user.index') }}">Ver todos</a>
                         </li>
                         <li>
-                            <a href="#">Agregar rol</a>
+                            <a href="{{ route('user.create') }}">Agregar usuarios</a>
                         </li>
                     </ul>
                 </li>
@@ -143,31 +143,33 @@
 
         <div id="content">
 
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container-fluid">
-            
-                        <button type="button" id="sidebarCollapse" class="navbar-btn">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </button>
-            
-                        <div id="navbarSupportedContent">
-                            <ul class="nav navbar-nav ml-auto">
-                                <li class="nav-item">
-                                    {{-- lo hacemos dinamico con page --}}
-                                    <a> @yield('page') </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav> 
-    {{-- INCLUIMOS LAS ALERTAS EN EL PROYECTO --}}
-@include('admin.partials.alert')
-@include('admin.partials.error')
-    <!-- TERMINA EL SIDEBAR -->
-    @yield('content')
-</div>
+                        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                            <div class="container-fluid">
+                    
+                                <button type="button" id="sidebarCollapse" class="navbar-btn">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </button>
+                    
+                                <div id="navbarSupportedContent">
+                                    <ul class="nav navbar-nav ml-auto">
+                                        <li class="nav-item">
+                                            {{-- lo hacemos dinamico con page --}}
+                                            <a> @yield('page') </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav> 
+            {{-- INCLUIMOS LAS ALERTAS EN EL PROYECTO --}}
+        @include('admin.partials.alert')
+        @include('admin.partials.error')
+            <!-- TERMINA EL SIDEBAR -->
+            @yield('content')
+        </div>
+    </div>
+
     <script src="{{ asset('js/slim.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -177,7 +179,8 @@
             });
         });
     </script>
-
+    
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     @yield('scripts')
 
 </body>

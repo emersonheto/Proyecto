@@ -15,12 +15,12 @@ class PermissionsTableSeeder extends Seeder
     public function run()
     {
         // PERMISOS PARA LOS ARCHIVOS
-        // Permission::create(['name'=>'file.create','description'=>'Subir archivos']);
-        // Permission::create(['name'=>'file.store','description'=>'Almacenar archivos']);
-        // Permission::create(['name'=>'file.images','description'=>'Ver las imagenes']);
-        // Permission::create(['name'=>'file.videos','description'=>'Ver los videos']);
-        // Permission::create(['name'=>'file.documents','description'=>'Ver los documentos']);
-        // Permission::create(['name'=>'file.audios','description'=>'Ver los audios']);
+        Permission::create(['name'=>'file.create','description'=>'Subir archivos']);
+        Permission::create(['name'=>'file.store','description'=>'Almacenar archivos']);
+        Permission::create(['name'=>'file.images','description'=>'Ver las imagenes']);
+        Permission::create(['name'=>'file.videos','description'=>'Ver los videos']);
+        Permission::create(['name'=>'file.documents','description'=>'Ver los documentos']);
+        Permission::create(['name'=>'file.audios','description'=>'Ver los audios']);
 
         // PERMISOS PARA LOS ROLES
         Permission::create(['name'=>'role.index','description'=>'Mostrar todos los roles']);

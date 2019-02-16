@@ -359,3 +359,11 @@ button.btn.btn-primary.file {
   font-size: 1rem;
 }
 
+/* MODAL */
+
+.modalCenter {
+  top: 50% !important;
+  -webkit-transform: translateY(-60%);
+          transform: translateY(-60%);
+}
+

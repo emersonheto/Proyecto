@@ -328,3 +328,9 @@ a.article, a.article:hover {
       margin: 50px;
       font-size: 1rem;
   }
+  
+/* MODAL */
+.modalCenter{
+    top: 50% !important;
+    transform: translateY(-60%);
+  }
