@@ -56,48 +56,78 @@ class FilesController extends Controller
 
 
      //PARA ALMACENAR LOS ARCHIVOS
-    public function store(Request $request) //RECIBE LOS DATOS DEL FORMILARIO
+    public function store(FileValidationRequest $request) //RECIBE LOS DATOS DEL FORMILARIO
     {   
         $max_size=(int)ini_get('upload_max_filesize')*1000;   //tamaño maximo que puede tener el archivo
         $all_ext=implode(',',$this->allExtensions());           //unimos todas las extensiones
         
         //VALIDAMOS LOS ARCHIVOS CON VALIDATE
-        $this->validate(request(),[
-            'file.*'=>'required|file|mimes:' .$all_ext. '|max:' .$max_size
-        ]);        
+        // $this->validate(request(),[
+        //     'file.*'=>'required|file|mimes:' .$all_ext. '|max:' .$max_size
+        // ]);        
         // CARGAMOS LAS VARIABLES 
-         $uploadFile=new File();
-         $files=$request->file('file');
-         
-        foreach ($files as $file) {
-            # code...
+        $this->validate(request(),[
+            'file' => 'required',
+            'file.*'=> 'mimes:'.$all_ext,  
+            'file' => 'max:'.$max_size            
+        //'file.*'=>'required|file|mimes:' .$all_ext. '|max:' .$max_size
+        ]); 
+        $files=[];    
+
+        $validator = Validator::make(
+            $input_data, [
+            'image_file.*' => 'required|mimes:jpg,jpeg,png,bmp|max:20000'
+            ],[
+                'image_file.*.required' => 'Please upload an image',
+                'image_file.*.mimes' => 'Only jpeg,png and bmp images are allowed',
+                'image_file.*.max' => 'Sorry! Maximum allowed size for an image is 20MB',
+            ]
+        );
+
+        if ($validator->fails()) {
+            // Validation error.. 
+        }
+        //$files=$request->file('file');
+        
+        foreach ($request->file('file') as $file) {
+          
+                $name=$file->getClientOriginalName();
+                //$name=time().$file->getClientOriginalExtension();
+                $ext=$file->getClientOriginalExtension();
+                $type=$this->getType($ext);
+
+                $uploadFile=new File();
+
+                print_r("<br>");
+                print_r($name." ".$ext." ".$type);
+
         }
 
+        $input_data = $request->all();
 
 
-         $name=$file->getClientOriginalName();
-         //$name=time().$file->getClientOriginalExtension();
-         $ext=$file->getClientOriginalExtension();
-         $type=$this->getType($ext);
+
+
         
-            try {
-                    $uploadFile::create([
-                        'name'=>$name,
-                        'type'=>$type,
-                        'extension'=>$ext,
-                        'user_id'=>Auth::id()]);
+            // try {
+            //         $uploadFile::create([
+            //             'name'=>$name,
+            //             'type'=>$type,
+            //             'extension'=>$ext,
+            //             'user_id'=>Auth::id()
+            //         ]);
             
-            } catch (QueryException $ex) {
-            // return back()->withErrors(['SQLerror'=>'No se pudo ingresar a la base de datos']);
-                return back()->withErrors(['SQLerror'=>'No se pudo ingresar a la base de datos '.$ex->getMessage()]);
-            }
-            // se crea la carpeta y se guarda el archivo con su nombre y extension
-            if (Storage::putFileAs('/public/'.$this->getUserFolder().'/'.$type.'/',$file,$name.'.'.$ext))
-            {                      //NOMBRE DE CARPETA //TIPO ARCHIVO DEL FORM//FILE= NAME DEL FORM//,NOMBREDOC AGREGANDO SU EXTENSION
-                return back()->with('info',['success','El archivo se ha subido correctamente']);     
-            }else{
-                return back()->withErrors(['SQLerror'=>'No se pudo guardar archivo en carpeta']);
-            }
+            // } catch (QueryException $ex) {
+            // // return back()->withErrors(['SQLerror'=>'No se pudo ingresar a la base de datos']);
+            //     return back()->withErrors(['SQLerror'=>'No se pudo ingresar a la base de datos '.$ex->getMessage()]);
+            // }
+            // // se crea la carpeta y se guarda el archivo con su nombre y extension 
+            // if (Storage::putFileAs('/public/'.$this->getUserFolder().'/'.$type.'/',$file,$name.'.'.$ext))
+            // {                      //NOMBRE DE CARPETA //TIPO ARCHIVO DEL FORM//FILE= NAME DEL FORM//,NOMBREDOC AGREGANDO SU EXTENSION
+            //     return back()->with('info',['success','El archivo se ha subido correctamente']);     
+            // }else{
+            //     return back()->withErrors(['SQLerror'=>'No se pudo guardar archivo en carpeta']);
+            // }
     }
   
     public function destroy(Request $request)
