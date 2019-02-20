@@ -20,25 +20,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css')}}" rel="stylesheet">
     <link href="{{ asset('css/admin.css')}}" rel="stylesheet">
-                {{-- ultimo  --}}
-                <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
-                <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
-                <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
-                <style type="text/css">
-                    .main-section{
-                        margin:0 auto;
-                        padding: 20px;
-                        margin-top: 100px;
-                        background-color: #fff;
-                        box-shadow: 0px 0px 20px #c1c1c1;
-                    }
-                    .fileinput-remove,
-                    .fileinput-upload{
-                        display: none;
-                    }
-                </style>
-
-              {{-- /* fin ultimo */ --}}
+    
 
 </head>
 
