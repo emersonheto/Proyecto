@@ -3,9 +3,24 @@
 @section('content')
 
 <div class="container">
-        {{-- {{ dd(storage_path()) }}  --}}
-         {{-- {{ storage_path().$folder}}
-         {{ asset('storage') }}  --}}
+        <form action=" {{ route('file.store') }} " method="POST" enctype="multipart/form-data"
+        class="dropzone" id="dropzone">
+            @csrf
+                <div class="row d-flex flex-row justify-content-center align-items-center pt-3">
+                        <div class="form-group ">
+                            <label for="file">Selecciona un archivo para subirlo</label>				
+                            <input type="file"  class="form-control-file" name="file[]" multiple   required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary file">
+                                Subir archivos
+                            </button>				
+                            {{-- <button type="button" id='btn' class="btn btn-primary file" onclick="ver()">
+                                prueba
+                            </button>		 --}}
+                        </div>			
+                </div>
+        </form>
     <div class="row">
         <div class="col-sm-12 table-responsive">
             <table class='table table-hover'>
@@ -40,10 +55,10 @@
                             <th scope='row'> {{ $document->created_at->DiffForHumans()}} </th>
                             <th scope='row'>
                             @if ($document->extension=='pdf'|| $document->extension=='PDF')
-                                <a class='btn btn-primary ' style="width:70%;" target="_blank" href="{{ asset('storage') }}/{{$folder}}/document/{{$document->name}}.{{ $document->extension}}">
+                                <a class='btn btn-primary ' style="width:70%;" target="_blank" href="{{ asset('storage') }}/{{$folder}}/document/{{$document->name}}.{{$document->extension}}">
                                 <i class="fas  fa-1x fa-eye"></i> Ver</a>                          
                             @else
-                                <a class='btn btn-primary'  style="width: 70%;"  target="_blank" href="{{ asset('storage') }}/{{$folder}}/document/{{$document->name}}.{{ $document->extension}}">
+                                <a class='btn btn-primary'  style="width: 70%;"  target="_blank" href="{{ asset('storage') }}/{{$folder}}/document/{{$document->name}}.{{$document->extension}}">
                                     <i class="fas fa-1x fa-download "></i> Descargar
                                 </a> 
                             @endif
@@ -79,4 +94,34 @@
 
 @section('scripts')
     @include('admin.partials.js.deleteModal')
+
+    <script type="text/javascript">
+    var img_ext=['.png','.jpg','.jpeg','.gif','.PNG','.JPG','.JPEG','.GIF'];
+    var video_ext=['.mp4','.avi','.jpeg','.mpeg','.MP4','.AVI','.JPEG','.MPEG'];
+    var documento_ext=['.doc','.docx','.pdf','.odt','.DOC','.DOCX','.PDF','.ODT','.xlsx','.XLSX'];
+    var audio_ext=['.mp3','.mpga','.wma','.ogg','.MP3','.MPGA','.WMA','.OGG'];
+
+    var all_ext =.merge(img_ext,video_ext,documento_ext,audio_ext);
+console.log(all_ext);
+        Dropzone.options.dropzone =
+         {
+            maxFilesize: 12,
+            renameFile: function(file) {
+                var dt = new Date();
+                var time = dt.getTime();
+               return time+file.name;
+            },
+            acceptedFiles: all_ext,
+            addRemoveLinks: true,
+            timeout: 5000,
+            success: function(file, response) 
+            {
+                console.log(response);
+            },
+            error: function(file, response)
+            {
+               return false;
+            }
+        };
+ </script>
 @endsection

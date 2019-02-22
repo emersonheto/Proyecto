@@ -6,6 +6,7 @@ use App\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 //use Illuminate\Support\Facades\File;
 
@@ -20,6 +21,8 @@ class FilesController extends Controller
     {
         $this->middleware('auth');       
     }
+   
+
 
     public function  create()
     {
@@ -81,31 +84,54 @@ class FilesController extends Controller
 
             foreach ($file_array as $file ) 
             {
-                $ldate = date('Y-m-d');
+                $ldate = date('Ymd');
                 $nombre=$file->getClientOriginalName();
                 $ext=$file->getClientOriginalExtension();
-                $image_name=$ldate."".$nombre.rand(1, 999);
-                $filePath = "/Store/" . date("Y") . '/' . date("m") . "/" . $image_name;
-                print_r($image_name."filename : ".$filePath);
-                echo "<br>";
+                $type=$this->getType($ext);
+                $file_name=$ldate."_".rand(1,999)."_".$nombre;
+               // $filePath = "/Store/" . date("Y") . '/' . date("m") . "/" . $file_name;
+                $filePath = "/public/".$this->getUserFolder()."/".$type."/";
 
-                 if (Storage::putFileAs('/public/'.$this->getUserFolder().'/'.$type.'/',$file,$name.'.'.$ext))
-                {                      //NOMBRE DE CARPETA //TIPO ARCHIVO DEL FORM//FILE= NAME DEL FORM//,NOMBREDOC AGREGANDO SU EXTENSION
-                    return back()->with('info',['success','El archivo se ha subido correctamente']);     
-                }else{
-                    return back()->withErrors(['SQLerror'=>'No se pudo guardar archivo en carpeta']);
+
+                // print_r($file_name.":::::pathname : ".$filePath);                
+                // echo "<br>";                        
+                
+                 try 
+                {
+                    $uploadFile=new File();   
+                    if ( $uploadFile::create([
+                        'name'=>$file_name,
+                        'type'=>$type,
+                        'extension'=>$ext,
+                        'user_id'=>Auth::id()
+                     ]))
+                     
+                    {
+                        if (Storage::putFileAs($filePath,$file,$file_name))
+                        {                  //NOMBRE DE CARPETA //TIPO ARCHIVO DEL FORM//FILE= NAME DEL FORM//,NOMBREDOC AGREGANDO SU EXTENSION
+                           Session::flash('message', 'se subio este archivo'.$file_name); 
+                        }
+                        else{
+                            return back()->withErrors(['SQLerror'=>'No se pudo guardar archivo en carpeta']);
+                        }
+                    }
+                    
+
                 }
-
-
+                catch (QueryException $ex) 
+                {
+                    // return back()->withErrors(['SQLerror'=>'No se pudo ingresar a la base de datos']);
+                    return back()->withErrors(['SQLerror'=>'No se pudo ingresar a la base de datos '.$ex->getMessage()]);
+                }
+              
 
             }
+            return back()->with('info',['success','El archivo se ha subido correctamente']);
+
         }    
 
 
 
-
-
-        // $files=[];    
 
         // $validator = Validator::make(
         //     $input_data, [
@@ -168,7 +194,7 @@ class FilesController extends Controller
         $file=File::findOrFail($request->file_id);//agregamos la variable del modal
        // dd($file);
         //$file=File::findOrFail($request->get('file_id'));     // son lo mismo
-        $rutaDelArchivo='/public/'.$this->getUserFolder().'/'.$file->type.'/'.$file->name.'.'.$file->extension;      
+        $rutaDelArchivo='/public/'.$this->getUserFolder().'/'.$file->type.'/'.$file->name;      
         
         if (Storage::disk('local')->exists($rutaDelArchivo)) 
         {

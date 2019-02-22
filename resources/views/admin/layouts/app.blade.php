@@ -12,6 +12,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/dropzone.js') }}" defer></script>
 
     <!-- ICONOS  ya agegados 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" 
@@ -20,6 +21,14 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css')}}" rel="stylesheet">
     <link href="{{ asset('css/admin.css')}}" rel="stylesheet">
+
+
+    {{-- esto es nuevo  --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script> --}}
+    {{-- fin de nuevo --}}
     
 
 </head>
