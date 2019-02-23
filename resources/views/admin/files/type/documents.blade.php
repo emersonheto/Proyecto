@@ -9,7 +9,7 @@
                 <div class="row d-flex flex-row justify-content-center align-items-center pt-3">
                         <div class="form-group ">
                             <label for="file">Selecciona un archivo para subirlo</label>				
-                            <input type="file"  class="form-control-file" name="file[]" multiple   required>
+                            <input type="file"  class="form-control-file" name="file" multiple   required>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary file">
@@ -20,10 +20,10 @@
                             </button>		 --}}
                         </div>			
                 </div>
-        </form>
+        
     <div class="row">
         <div class="col-sm-12 table-responsive">
-            <table class='table table-hover'>
+            <table class='table table-hover' ">
                 <thead>
                     <tr>
                         <th scope="col"></th>
@@ -48,17 +48,20 @@
                             @endif     
                             @if ($document->extension=='doc'|| $document->extension=='DOC')
                                 <img class='img-responsive'width="30px" src=" {{ asset('img/files/word.svg') }} " alt="">    
-                            @endif                            
+                            @endif
+                            @if ($document->type=='image')
+                                <img class='img-responsive'width="30px" src=" {{ asset('img/files/img.png') }} " alt="">    
+                            @endif                              
 
                             </th>
                             <th scope='row'> {{ $document->name }} </th>
                             <th scope='row'> {{ $document->created_at->DiffForHumans()}} </th>
                             <th scope='row'>
-                            @if ($document->extension=='pdf'|| $document->extension=='PDF')
-                                <a class='btn btn-primary ' style="width:70%;" target="_blank" href="{{ asset('storage') }}/{{$folder}}/document/{{$document->name}}.{{$document->extension}}">
+                            @if ($document->extension=='pdf'|| $document->extension=='PDF'|| $document->type=='image')
+                                <a class='btn btn-primary ' style="width:70%;" target="_blank" href="{{ asset('storage') }}/{{$document->name}}">
                                 <i class="fas  fa-1x fa-eye"></i> Ver</a>                          
                             @else
-                                <a class='btn btn-primary'  style="width: 70%;"  target="_blank" href="{{ asset('storage') }}/{{$folder}}/document/{{$document->name}}.{{$document->extension}}">
+                                <a class='btn btn-primary'  style="width: 70%;"  target="_blank" href="{{asset('storage')}}/{{$document->name}}">
                                     <i class="fas fa-1x fa-download "></i> Descargar
                                 </a> 
                             @endif
@@ -85,7 +88,8 @@
                 {{ $documents->links() }}           
             </div>
            </div>
-        </div>        
+        </div>   
+    </form>     
         {{--ADD ARCHIVO DONDE SE ENCUENTRA EL MODAL --}}
         @include('admin.partials.modals.files')
     </div>
@@ -95,14 +99,14 @@
 @section('scripts')
     @include('admin.partials.js.deleteModal')
 
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
     var img_ext=['.png','.jpg','.jpeg','.gif','.PNG','.JPG','.JPEG','.GIF'];
     var video_ext=['.mp4','.avi','.jpeg','.mpeg','.MP4','.AVI','.JPEG','.MPEG'];
     var documento_ext=['.doc','.docx','.pdf','.odt','.DOC','.DOCX','.PDF','.ODT','.xlsx','.XLSX'];
     var audio_ext=['.mp3','.mpga','.wma','.ogg','.MP3','.MPGA','.WMA','.OGG'];
 
     var all_ext =.merge(img_ext,video_ext,documento_ext,audio_ext);
-console.log(all_ext);
+        console.log(all_ext);
         Dropzone.options.dropzone =
          {
             maxFilesize: 12,
@@ -123,5 +127,9 @@ console.log(all_ext);
                return false;
             }
         };
+ </script> --}}
+
+ <script>
+     var myDropzone = new Dropzone("div#myId", { url: "/file/post"});
  </script>
 @endsection

@@ -1,5 +1,5 @@
     {{-- MODAL --}}
-    <div class="modal fade modalCenter" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade modalCenter" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true" data-backdrop='false'>
     <div class="modal-dialog" role="document">
         <div class="modal-content">
