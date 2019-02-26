@@ -10,7 +10,28 @@
 
 	<form action=" {{ route('file.store') }} " id='upload_form' method="POST" enctype="multipart/form-data">
 		@csrf
+
+		
+
 			<div class="row d-flex flex-row justify-content-center align-items-center pt-3">
+					<div class="form-group  m-bot12 p-4" >
+						<label for="role_id">Cliente</label>
+					<select class="form-control" name="role_id">
+
+							@if ($roles->count())
+						
+										@foreach($roles as $role)
+												<option value="{{ $role->id }}"
+													{{-- {{ $selectedRole == $role->id ? 'selected="selected"' : '' }}  --}}
+													>{{ $role->name }}
+												</option>    
+										@endforeach		
+						
+								@endif
+						
+						</select>
+					</div>		
+
 					<div class="form-group ">
 						<label for="file">Selecciona un archivo para subirlo</label>				
 						<input type="file"  class="form-control-file" name="file" id='file' multiple   required>

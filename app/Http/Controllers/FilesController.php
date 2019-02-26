@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\File;
 use Validator;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use App\Http\Requests\StoreArchivo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
@@ -26,7 +27,8 @@ class FilesController extends Controller
     }  
     public function  create()
     {
-        return view('admin.files.create');
+        $roles=Role::all(); 
+        return view('admin.files.create',\compact('roles'));
     }
     //PARA MOSTRAR LOS ARCHIVOS SEGUN EL TIPO DE ARCHIVO
     public function  images()
@@ -49,10 +51,11 @@ class FilesController extends Controller
     }
     public function  documents()
     {
+        $roles=Role::all(); 
         $documents=File::whereUserId(auth()->id())->OrderBy('id','desc')->paginate(10);
       //  $docu = File::paginate(15);
         $folder=str_slug(Auth::user()->name . '-'.Auth::id());
-        return view('admin.files.type.documents',\compact('documents','folder'));    
+        return view('admin.files.type.documents',\compact('documents','folder','roles'));    
     }
     //FIN DE MOSTRAR LOS ARCHIVOS SEGUN EL TIPO DE ARCHIVO
 
@@ -70,6 +73,7 @@ class FilesController extends Controller
                 //$new_name=rand().'.'.$image->getClientOriginalExtension();
                 $nombre=$file->getClientOriginalName();
                 $new_name=$ldate."_".rand(1,999)."_".$nombre;
+                // $new_name=$nombre;
                 $ext=$file->getClientOriginalExtension();
                 $type=$this->getType($ext);
                 $filePath = "/public/".$this->getUserFolder()."/".$type."/";

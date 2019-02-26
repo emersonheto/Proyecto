@@ -28,11 +28,9 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script> --}}
-    {{-- fin de nuevo --}}
-    
+    {{-- fin de nuevo --}}    
 
 </head>
-
 <body>
     <!-- AGREGAMOS EL SIDEBAR -->
     <div class="wrapper">
@@ -133,6 +131,20 @@
                         </li>
                     </ul>
                 </li>
+
+                <li>
+                        <a href="#clienteSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+                                class="fas fa-users"></i> Clientes</a>
+                        <ul class="collapse list-unstyled" id="clienteSubmenu">
+                            <li>
+                                <a id='' href="{{ route('user.index') }}">Cliente</a>
+                            </li>
+                            <li>
+                                <a id='' href="{{ route('user.create') }}">Estacion de servicio</a>
+                            </li>
+                        </ul>
+                    </li>
+
                 <li>
                     <a href="#"><i class="far fa-question-circle"></i> Soporte</a>
                 </li>
@@ -188,6 +200,13 @@
                 $("#sidebar").toggleClass('active');
                 $(this).toggleClass('active');
             });
+
+            $('#sidebarCollapse').on('click', function() {
+                $("#sidebar").toggleClass('active');
+                $(this).toggleClass('active');
+            });
+
+
         });
     </script>
     
