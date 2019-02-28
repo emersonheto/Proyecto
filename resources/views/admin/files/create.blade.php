@@ -8,10 +8,9 @@
 @section('content')
 	<div class="alert" id="message" style="display: none"></div>
 
+
 	<form action=" {{ route('file.store') }} " id='upload_form' method="POST" enctype="multipart/form-data">
 		@csrf
-
-		
 
 			<div class="row d-flex flex-row justify-content-center align-items-center pt-3">
 					<div class="form-group  m-bot12 p-4" >

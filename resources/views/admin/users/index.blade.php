@@ -7,8 +7,7 @@
         <div class="col-sm-12 mb-5">
                 <a class='btn btn-outline-success' href=" {{ route('user.create') }} "><i class="fas fa-plus-circle"></i> Agregar un usuario</a>  
          </div>
-
-    
+   
       <div class="col-sm-12 table-responsive">
           <table class='table table-hover'>
               <thead>

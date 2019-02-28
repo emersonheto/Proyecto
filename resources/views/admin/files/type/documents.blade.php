@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-        <form action=" {{ route('file.store') }} " method="POST" enctype="multipart/form-data"
+        {{-- <form action=" {{ route('file.store') }} " method="POST" enctype="multipart/form-data"
         class="dropzone" id="dropzone">
             @csrf
                 <div class="row d-flex flex-row justify-content-center align-items-center pt-3">
@@ -14,16 +14,25 @@
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary file">
                                 Subir archivos
-                            </button>				
-                            {{-- <button type="button" id='btn' class="btn btn-primary file" onclick="ver()">
-                                prueba
-                            </button>		 --}}
+                            </button>
                         </div>			
                 </div>
+            </form>   --}}
         
-    <div class="row">
-        <div class="col-sm-12 table-responsive">
-            <table class='table table-hover' ">
+        <div class="row">
+            <div class="col-sm-12 table-responsive">                        
+                <form class='navbar-form float-right'>
+                        @csrf
+                    <div class="input-group">
+                        <input type="text" id='isearch'  name='nameSearch' class='form-control float-right' aria-describedby="search" placeholder="Buscar">
+                        <span class="input-group-text " id="search"><i class='fa fa-search'></i></span>
+                        
+                    </div>                                    
+                </form>
+            {{-- BUSCADOR --}}
+            <hr>
+            {{-- FIN BUSCADOR  --}}
+            <table class='table table-hover'>
                 <thead>
                     <tr>
                         <th scope="col"></th>
@@ -89,7 +98,7 @@
             </div>
            </div>
         </div>   
-    </form>     
+       
         {{--ADD ARCHIVO DONDE SE ENCUENTRA EL MODAL --}}
         @include('admin.partials.modals.files')
     </div>
@@ -98,6 +107,33 @@
 
 @section('scripts')
     @include('admin.partials.js.deleteModal')
+    <script>
+        $("#isearch").keyup(function(e){
+
+            console.log("hola");
+           var nameSearch=$("#isearch").val();
+           var da=new FormData();
+           da.append('nameSearch',nameSearch);
+			$.ajax({
+				url:"{{route('file.prueba')}}",
+				method:"GET",
+				data:da,
+				dataType:'JSON',
+				contentType:false,
+				cache:false,
+				processData:false,
+				success:function(data)
+				{
+				console.log(data);
+
+					// $('#message').css('display','block');
+					// $('#message').html(data.message);
+					// $('#message').addClass(data.class_name);
+					// $('#uploaded_image').html(data.uploaded_image);
+				}
+			});
+        });
+    </script>
 
     {{-- <script type="text/javascript">
     var img_ext=['.png','.jpg','.jpeg','.gif','.PNG','.JPG','.JPEG','.GIF'];

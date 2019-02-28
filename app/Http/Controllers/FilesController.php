@@ -49,14 +49,29 @@ class FilesController extends Controller
         $folder=str_slug(Auth::user()->name . '-'.Auth::id());
         return view('admin.files.type.audios',\compact('audios','folder'));    
     }
-    public function  documents()
-    {
+    public function  documents(Request $request)
+    {   
+        // File::Search();
         $roles=Role::all(); 
-        $documents=File::whereUserId(auth()->id())->OrderBy('id','desc')->paginate(10);
+        if ($request->nameSearch=="") {
+            $documents=File::whereUserId(auth()->id())->OrderBy('id','desc')->paginate(10);            
+        }else{
+            $documents=File::search($request->nameSearch)->whereUserId(auth()->id())->OrderBy('id','desc')->paginate(10);
+        }
+
       //  $docu = File::paginate(15);
         $folder=str_slug(Auth::user()->name . '-'.Auth::id());
         return view('admin.files.type.documents',\compact('documents','folder','roles'));    
     }
+
+    public function  prueba(Request $request)
+    {   
+        $documents=File::whereUserId(auth()->id())->OrderBy('id','desc')->paginate(10);
+        return response()->json($documents);  
+    }
+
+
+
     //FIN DE MOSTRAR LOS ARCHIVOS SEGUN EL TIPO DE ARCHIVO
 
      //PARA ALMACENAR LOS ARCHIVOS
