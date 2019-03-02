@@ -25,7 +25,7 @@ Route::get('archivos/imagenes', 'FilesController@images')->name('file.images');
 Route::get('archivos/videos', 'FilesController@videos')  ->name('file.videos');
 Route::get('archivos/audios', 'FilesController@audios')  ->name('file.audios');
 Route::get('archivos/documentos', 'FilesController@documents') ->name('file.documents');
-Route::get('archivos/documentos', 'FilesController@prueba') ->name('file.prueba');
+Route::get('archivos/search', 'FilesController@getData') ->name('file.getData');
 Route::post('archivos/subir', 'FilesController@store')   ->name('file.store');
 //Route::post('archivos/editar/{id}', 'FilesController@edit');
 Route::patch('archivos/eliminar/{id}', 'FilesController@destroy')->name('file.destroy');

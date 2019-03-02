@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\File;
-use Validator;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 use Spatie\Permission\Models\Role;
 use App\Http\Requests\StoreArchivo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
-//use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Validator;
 //use Illuminate\Support\Facades\File;
 
 class FilesController extends Controller
@@ -49,84 +49,95 @@ class FilesController extends Controller
         $folder=str_slug(Auth::user()->name . '-'.Auth::id());
         return view('admin.files.type.audios',\compact('audios','folder'));    
     }
-    public function  documents(Request $request)
-    {   
-        // File::Search();
-        $roles=Role::all(); 
-        if ($request->nameSearch=="") {
-            $documents=File::whereUserId(auth()->id())->OrderBy('id','desc')->paginate(10);            
-        }else{
-            $documents=File::search($request->nameSearch)->whereUserId(auth()->id())->OrderBy('id','desc')->paginate(10);
-        }
-
-      //  $docu = File::paginate(15);
-        $folder=str_slug(Auth::user()->name . '-'.Auth::id());
-        return view('admin.files.type.documents',\compact('documents','folder','roles'));    
+    // public function  documents()
+    // { 
+    //     $documents=File::whereUserId(auth()->id())->OrderBy('id','desc')->paginate(10);
+    //     $folder=str_slug(Auth::user()->name . '-'.Auth::id());
+    //     $roles=Role::all();  
+    //     return view('admin.files.type.documents',\compact('documents','folder','roles'));
+        
+    // }
+    public function  documents()
+    {         
+        return view('admin.files.type.documents');       
     }
 
-    public function  prueba(Request $request)
-    {   
-        $documents=File::whereUserId(auth()->id())->OrderBy('id','desc')->paginate(10);
-        return response()->json($documents);  
-    }
+    public function getData()
+    {
+        $files=File::all();
 
+        return DataTables::of($files)
+        ->addColumn('btnMostrar',function($file){
+            
+            $ex=$file->extension;
+            $type=$file->type;
+            $storage=asset('storage');
+            if ($type=="image"||$ex=="pdf"||$ex=="PDF")
+            { 
+                   return "<button class='btn btn-sm btn-primary  mt-1' style='width: 90px;' target='_blank' href='$storage/$file->name'>
+                   <i class='fas  fa-eye'></i> Ver</button> ";
+            }
+            else
+            {
+                return "<button  class='btn btn-sm btn-primary  mt-1' style='width: 90px;' target='_blank' href='$storage/$file->name'>
+                   <i class='fas fa-download'></i> Descarga</button>"; 
+            }
+        })
+        ->addColumn('btnEliminar',function($file){           
+            
+            $storage=asset('storage');
+            
+            return  "<button type='submit' class='btn btn-danger  btn-sm mt-1' style='width: 90px;' data-toggle='modal' data-target='#deleteModal'
+            data-file-id=$file->id> <i class='fas fa-trash'></i> Delete</button>";
+            
+        })
+        ->rawColumns(['btnMostrar','btnEliminar'])   
+        ->make(true);
+    }
 
 
     //FIN DE MOSTRAR LOS ARCHIVOS SEGUN EL TIPO DE ARCHIVO
 
      //PARA ALMACENAR LOS ARCHIVOS
-    public function store(StoreArchivo $request) //RECIBE LOS DATOS DEL FORMILARIO
+    public function store(Request $request) //RECIBE LOS DATOS DEL FORMILARIO
     {   
-
         try {
-                // $validation=Validator::make($request->all(),
-                // [
-                //     'file'=>'required|image|mimes:'.$all_ext.'|max:4048'
-                // ]);    
-                $ldate = date('Ymd');
-                $file=$request->file('file');
-                //$new_name=rand().'.'.$image->getClientOriginalExtension();
-                $nombre=$file->getClientOriginalName();
-                $new_name=$ldate."_".rand(1,999)."_".$nombre;
-                // $new_name=$nombre;
-                $ext=$file->getClientOriginalExtension();
-                $type=$this->getType($ext);
-                $filePath = "/public/".$this->getUserFolder()."/".$type."/";
-                   
-                $uploadFile=new File();   
-                if ( $uploadFile::create(['name'=>$new_name,'type'=>$type,
-                                 'extension'=>$ext,'user_id'=>Auth::id()
-                    ]))        //verificamos si se registro a la base de datos
-                {
-                    $file->move(public_path('storage'),$new_name);
-                            
-                    return response()->json([
-                    'message'=>'Imagen '.$new_name.' cargada correctamente'. public_path('storage') ,
-                    'uploaded_image'=>'<img class="mt-4" style="width:20%" src="'.asset('storage').'/'.$new_name.'"/>',
-                    'class_name' =>'alert-success'
-                    ]); 
-                }
-                else
-                {
-                    return response()->json([
-                        'message'=>'Error al ingresar el archivo a la base de datos',
-                        'uploaded_image'=>'',
-                        'class_name' =>'alert-danger'
-                    ]); 
-                }
+            $ldate = date('Ymd');
+            $file=$request->file('file');
+            $nombre=$file->getClientOriginalName();
+            $new_name=$ldate."_".rand(1,999)."_".$nombre;
+
+            // return response()->json($nombre);
+    
+            $ext=$file->getClientOriginalExtension();
+            $type=$this->getType($ext);
+            $filePath = "/public/".$this->getUserFolder()."/".$type."/";
                 
-
-
-        } catch (Throwable $th) {
-            return response()->json([
-                'message'=>$th,
-                'uploaded_image'=>'',
-                'class_name' =>'alert-danger'
-            ]); 
+            $uploadFile=new File();   
+            if ( $uploadFile::create(['name'=>$new_name,'type'=>$type,
+                                'extension'=>$ext,'user_id'=>Auth::id()
+                ]))        //verificamos si se registro a la base de datos
+            {
+                $file->move(public_path('storage'),$new_name);
+                        
+                return response()->json([
+                'message'=>'Imagen '.$new_name.' cargada correctamente'. public_path('storage') ,
+                'uploaded_image'=>'<img class="mt-4" style="width:20%" src="'.asset('storage').'/'.$new_name.'"/>',
+                'class_name' =>'alert-success'
+                ]); 
+            }
+            else
+            {
+                return response()->json([
+                    'message'=>'Error al ingresar el archivo a la base de datos',
+                    'uploaded_image'=>'',
+                    'class_name' =>'alert-danger'
+                ]); 
+            }
+        } catch (\Exception $err) {
+            return response()->json("Error al subir archivo.", 401); 
         }
-
-
-
+  
         //VALIDAMOS LOS ARCHIVOS CON VALIDATE
         // $this->validate(request(),[
         //     'file.*'=>'required|file|mimes:' .$all_ext. '|max:' .$max_size
@@ -265,7 +276,7 @@ class FilesController extends Controller
            if (Storage::disk('local')->delete($rutaDelArchivo))
            {
                 $file->delete();
-                return back()->with('info',['success','El archivo se eliminó correctamente']);
+                return redirect('file.documents')->with('info',['success','El archivo se eliminó correctamente']);
            }
         }
     }

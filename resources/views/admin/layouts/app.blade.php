@@ -17,20 +17,14 @@
     <!-- ICONOS  ya agegados 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" 
     integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    -->  
+    -->
     <!-- Styles -->
     <link href="{{ asset('css/app.css')}}" rel="stylesheet">
     <link href="{{ asset('css/admin.css')}}" rel="stylesheet">
-
-
-    {{-- esto es nuevo  --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script> --}}
-    {{-- fin de nuevo --}}    
-
+    <link href="{{ asset('css/dropzone.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/jquery.dataTables.min.css')}}" rel="stylesheet">
 </head>
+
 <body>
     <!-- AGREGAMOS EL SIDEBAR -->
     <div class="wrapper">
@@ -44,8 +38,8 @@
 
             <div class="container mt-4 mb-2">
                 <div class="mb-2  ml-5">
-                    <img src=" {{asset('img')}}/{{Auth::User()->image}}" class="img-responsive" style="border-radius: 50%;" alt=""
-                        width="90">
+                    <img src=" {{asset('img')}}/{{Auth::User()->image}}" class="img-responsive" style="border-radius: 50%;"
+                        alt="" width="90">
                 </div>
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name text-center"> {{ Auth::User()->name }} </div>
@@ -88,6 +82,7 @@
                             <a href="{{ route('file.audios') }} ">Audios</a>
                         </li>
                         <li>
+
                             <a href="{{ route('file.documents') }} ">Documentos</a>
                         </li>
                     </ul>
@@ -107,8 +102,8 @@
                 </li>
 
                 <li>
-                    <a href="#permissionSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
-                            class="fas fa-fingerprint"></i> Permisos</a>
+                    <a href="#permissionSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-fingerprint"></i> Permisos</a>
                     <ul class="collapse list-unstyled" id="permissionSubmenu">
                         <li>
                             <a href="{{ route('permission.index') }}">Ver todos</a>
@@ -120,8 +115,9 @@
                 </li>
 
                 <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
-                            class="fas fa-users"></i> Usuarios</a>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fas fa-users"></i> Usuarios
+                    </a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                         <li>
                             <a href="{{ route('user.index') }}">Ver todos</a>
@@ -133,17 +129,17 @@
                 </li>
 
                 <li>
-                        <a href="#clienteSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
-                                class="fas fa-users"></i> Clientes</a>
-                        <ul class="collapse list-unstyled" id="clienteSubmenu">
-                            <li>
-                                <a id='' href="{{ route('user.index') }}">Cliente</a>
-                            </li>
-                            <li>
-                                <a id='' href="{{ route('user.create') }}">Estacion de servicio</a>
-                            </li>
-                        </ul>
-                    </li>
+                    <a href="#clienteSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
+                            class="fas fa-users"></i> Clientes</a>
+                    <ul class="collapse list-unstyled" id="clienteSubmenu">
+                        <li>
+                            <a id='' href="{{ route('user.index') }}">Cliente</a>
+                        </li>
+                        <li>
+                            <a id='' href="{{ route('user.create') }}">Estacion de servicio</a>
+                        </li>
+                    </ul>
+                </li>
 
                 <li>
                     <a href="#"><i class="far fa-question-circle"></i> Soporte</a>
@@ -152,42 +148,41 @@
 
             <ul class="list-unstyled CTAs">
                 <li>
-                    <a href=" {{route('logout')}}" class="logout btn btn-outline-danger"
-                    onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                        <i class="fas fa-power-off">
-                        </i> Cerrar sesión
+                    <a href=" {{route('logout')}}" class="logout btn btn-outline-danger" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                        <i class="fas fa-power-off"></i> Cerrar sesión
                     </a>
                 </li>
             </ul>
         </nav>
+        
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                  @csrf
+            @csrf
         </form>
 
         <div id="content">
 
-                        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                            <div class="container-fluid">
-                    
-                                <button type="button" id="sidebarCollapse" class="navbar-btn">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </button>
-                    
-                                <div id="navbarSupportedContent">
-                                    <ul class="nav navbar-nav ml-auto">
-                                        <li class="nav-item">
-                                            {{-- lo hacemos dinamico con page --}}
-                                            <a> @yield('page') </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </nav> 
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="navbar-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+
+                    <div id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item">
+                                {{-- lo hacemos dinamico con page --}}
+                                <a> @yield('page') </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
             {{-- INCLUIMOS LAS ALERTAS EN EL PROYECTO --}}
-        @include('admin.partials.alert')
-        @include('admin.partials.error')
+            @include('admin.partials.alert')
+            @include('admin.partials.error')
             <!-- TERMINA EL SIDEBAR -->
             @yield('content')
         </div>
@@ -196,21 +191,24 @@
     <script src="{{ asset('js/slim.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function() {
+            $('#sidebarCollapse').on('click', function () {
                 $("#sidebar").toggleClass('active');
                 $(this).toggleClass('active');
             });
 
-            $('#sidebarCollapse').on('click', function() {
+            $('#sidebarCollapse').on('click', function () {
                 $("#sidebar").toggleClass('active');
                 $(this).toggleClass('active');
             });
 
 
         });
+
     </script>
-    
+
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}" defer></script>
+
     @yield('scripts')
 
 </body>

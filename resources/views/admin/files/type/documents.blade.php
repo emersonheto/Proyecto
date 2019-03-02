@@ -1,37 +1,21 @@
 @extends('admin.layouts.app')
 @section('page','Documentos')
 @section('content')
-
-<div class="container">
-        {{-- <form action=" {{ route('file.store') }} " method="POST" enctype="multipart/form-data"
-        class="dropzone" id="dropzone">
-            @csrf
-                <div class="row d-flex flex-row justify-content-center align-items-center pt-3">
-                        <div class="form-group ">
-                            <label for="file">Selecciona un archivo para subirlo</label>				
-                            <input type="file"  class="form-control-file" name="file" multiple   required>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary file">
-                                Subir archivos
-                            </button>
-                        </div>			
-                </div>
-            </form>   --}}
+{{-- 
+    <div class="container">
+       
         
         <div class="row">
-            <div class="col-sm-12 table-responsive">                        
-                <form class='navbar-form float-right'>
+            <div class="col-sm-12 table-responsive">              
                         @csrf
-                    <div class="input-group">
-                        <input type="text" id='isearch'  name='nameSearch' class='form-control float-right' aria-describedby="search" placeholder="Buscar">
+                    <div class="input-group navbar-form float-right">
+
+                        <input type="text" id='nameSearch'  name='nameSearch' class='form-control float-right' 
+                            aria-describedby="search" placeholder="Buscar">
+
                         <span class="input-group-text " id="search"><i class='fa fa-search'></i></span>
-                        
-                    </div>                                    
-                </form>
-            {{-- BUSCADOR --}}
+                   </div>  
             <hr>
-            {{-- FIN BUSCADOR  --}}
             <table class='table table-hover'>
                 <thead>
                     <tr>
@@ -44,7 +28,8 @@
                 </thead>
                 <tbody>
                     @forelse ($documents as $document)
-                        <tr>
+                    {{-- <iframe width="400" height="400" src="https://docs.google.com/viewer?url={{ asset('img/files/pdf.svg') }}&embedded=true"  frameborder="0"></iframe> --}}
+                  {{--       <tr>
                             <th scope='row'> 
                             @if ($document->extension=='pdf'|| $document->extension=='pdf')
                                 <img class='img-responsive' width="30px" src=" {{ asset('img/files/pdf.svg') }} " alt="">    
@@ -70,14 +55,14 @@
                                 <a class='btn btn-primary ' style="width:70%;" target="_blank" href="{{ asset('storage') }}/{{$document->name}}">
                                 <i class="fas  fa-1x fa-eye"></i> Ver</a>                          
                             @else
-                                <a class='btn btn-primary'  style="width: 70%;"  target="_blank" href="{{asset('storage')}}/{{$document->name}}">
+                                <a class='btn btn-primary '  style="width: 70%;"  target="_blank" href="{{asset('storage')}}/{{$document->name}}">
                                     <i class="fas fa-1x fa-download "></i> Descargar
                                 </a> 
                             @endif
                             </th>
-                            <th scope="row">
+                        <th scope="row">
                                {{-- BOTON QUE INCLUIRA AL MODAL --}}
-                               <button type="submit" class='btn btn-danger mt-1 ' data-toggle="modal" data-target="#deleteModal"
+                          {{--       <button type="submit" class='btn btn-danger mt-1 ' data-toggle="modal" data-target="#deleteModal"
                                data-file-id={{$document->id}}> <i class="fas fa-trash"></i> Eliminar</button>
                             </th>
                         </tr>
@@ -100,72 +85,68 @@
         </div>   
        
         {{--ADD ARCHIVO DONDE SE ENCUENTRA EL MODAL --}}
-        @include('admin.partials.modals.files')
+    
+    {{-- </div> --}}
+ 
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Data Table Demo</div>
+    
+                    <div class="panel-body">
+                        <table class="table table-hover table-bordered table-striped datatable" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Ver</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                @include('admin.partials.modals.files')
+            </div>
+        </div>
     </div>
 
 @endsection
 
 @section('scripts')
     @include('admin.partials.js.deleteModal')
-    <script>
-        $("#isearch").keyup(function(e){
 
-            console.log("hola");
-           var nameSearch=$("#isearch").val();
-           var da=new FormData();
-           da.append('nameSearch',nameSearch);
-			$.ajax({
-				url:"{{route('file.prueba')}}",
-				method:"GET",
-				data:da,
-				dataType:'JSON',
-				contentType:false,
-				cache:false,
-				processData:false,
-				success:function(data)
-				{
-				console.log(data);
-
-					// $('#message').css('display','block');
-					// $('#message').html(data.message);
-					// $('#message').addClass(data.class_name);
-					// $('#uploaded_image').html(data.uploaded_image);
-				}
-			});
+    
+   
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('.datatable').dataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '{{ route('file.getData') }}',
+            columns: [
+                {data: 'id'},
+                {data: 'name'},
+                {data: 'type', name: 'type'},
+                {data: 'btnMostrar'},
+                {data: 'btnEliminar'},
+                // {data: 'action', name: 'action', orderable: false, searchable: false}
+            ]
         });
+    });
     </script>
+        {{-- <script>
 
-    {{-- <script type="text/javascript">
-    var img_ext=['.png','.jpg','.jpeg','.gif','.PNG','.JPG','.JPEG','.GIF'];
-    var video_ext=['.mp4','.avi','.jpeg','.mpeg','.MP4','.AVI','.JPEG','.MPEG'];
-    var documento_ext=['.doc','.docx','.pdf','.odt','.DOC','.DOCX','.PDF','.ODT','.xlsx','.XLSX'];
-    var audio_ext=['.mp3','.mpga','.wma','.ogg','.MP3','.MPGA','.WMA','.OGG'];
-
-    var all_ext =.merge(img_ext,video_ext,documento_ext,audio_ext);
-        console.log(all_ext);
-        Dropzone.options.dropzone =
-         {
-            maxFilesize: 12,
-            renameFile: function(file) {
-                var dt = new Date();
-                var time = dt.getTime();
-               return time+file.name;
-            },
-            acceptedFiles: all_ext,
-            addRemoveLinks: true,
-            timeout: 5000,
-            success: function(file, response) 
-            {
-                console.log(response);
-            },
-            error: function(file, response)
-            {
-               return false;
-            }
-        };
- </script> --}}
-
- <script>
-     var myDropzone = new Dropzone("div#myId", { url: "/file/post"});
- </script>
+        $("#nameSearch").on('keyup',function(){
+            $value=$(this).val();
+             console.log("hola");
+        //
+        });
+      
+    </script> --}}
 @endsection
