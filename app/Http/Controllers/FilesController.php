@@ -74,7 +74,7 @@ class FilesController extends Controller
             $storage=asset('storage');
             if ($type=="image"||$ex=="pdf"||$ex=="PDF")
             { 
-                   return "<button class='btn btn-sm btn-primary  mt-1' style='width: 90px;' target='_blank' href='$storage/$file->name'>
+                   return "<button class='btn btn-sm btn-primary  mt-1' style='width: 90px;' target='_blank' href='.$storage/$file->name.'>
                    <i class='fas  fa-eye'></i> Ver</button> ";
             }
             else

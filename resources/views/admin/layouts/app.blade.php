@@ -22,7 +22,18 @@
     <link href="{{ asset('css/app.css')}}" rel="stylesheet">
     <link href="{{ asset('css/admin.css')}}" rel="stylesheet">
     <link href="{{ asset('css/dropzone.css')}}" rel="stylesheet">
+
     <link href="{{ asset('css/jquery.dataTables.min.css')}}" rel="stylesheet">
+
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" rel="stylesheet"/> --}}
+    {{-- <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet"/> --}}
+
+
+    
+    
+    {{-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/> --}}
+ 
+
 </head>
 
 <body>
@@ -206,10 +217,18 @@
 
     </script>
 
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('js/jquery.dataTables.min.js') }}" defer></script>
+ <script src="{{ asset('js/bootstrap.min.js') }}"></script> 
+<script src="{{ asset('js/jquery.dataTables.min.js') }}" defer></script> 
+
+{{-- <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> --}}
+{{-- <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>  --}}
+
 
     @yield('scripts')
+{{-- <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+
+
 
 </body>
 

@@ -16,7 +16,7 @@
                     <input type="hidden" name="_method" value='PATCH'>
                     <div class="modal-body">
                         <p>¿Estas seguro de eliminar este elemento? No podrás recuperarlo</p>
-                        <input type="hidden" name="file_id" id='file_id' value="">
+                        <input type="hidden" name="file" id='file_id' value="">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i>Cancelar</button>

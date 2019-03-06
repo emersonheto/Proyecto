@@ -93,22 +93,26 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-12 col-sm-8">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Data Table Demo</div>
+                    <div class="card-header">Data Table Demo</div>
     
-                    <div class="panel-body">
-                        <table class="table table-hover table-bordered table-striped datatable" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th>Ver</th>
-                                    <th>Eliminar</th>
-                                </tr>
-                            </thead>
-                        </table>
+                    <div class="card-body">
+                            {{-- table-striped  --}}
+                            <table class="table table-hover  
+                            table-bordered table-striped  datatable"  >
+                                <thead>
+                                    <tr>
+                                        <th width="5px" >Id</th>
+                                        <th>Nombre</th>
+                                        <th>Tipo de archivo</th>
+                                        <th width="5px">Ver</th>
+                                        <th width="5px">Eliminar</th>
+                                    </tr>
+                                </thead>
+                               
+                            </table>
+                       
                     </div>
                 </div>
                 @include('admin.partials.modals.files')
@@ -119,23 +123,61 @@
 @endsection
 
 @section('scripts')
-    @include('admin.partials.js.deleteModal')
-
-    
+    @include('admin.partials.js.deleteModal')   
    
-    <script type="text/javascript">
+    <script type="text/javascript">    
+
     $(document).ready(function() {
-        $('.datatable').dataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '{{ route('file.getData') }}',
-            columns: [
+        $('.datatable').DataTable({
+        'language': {
+            'sProcessing': 'Procesando...',
+            
+            'sLengthMenu': 'Mostrar <select class=" custom-select-sm">'+
+                                '<option value="10">10</option>'+
+                                '<option value="20">20</option>'+
+                                '<option value="30">30</option>'+
+                                '<option value="40">40</option>'+
+                                '<option value="50">50</option>'+
+                                '<option value="-1">All</option>'+
+                                '</select> Archivos',
+            'sZeroRecords': 'No se encontraron resultados',
+            'sEmptyTable': 'Ningún dato disponible en esta tabla',
+            'sInfo': 'Mostrando registros del _START_ al _END_ de un total de _TOTAL_',
+            'sInfoEmpty': 'Mostrando registros del 0 al 0 de un total de 0 registros',
+            'sInfoFiltered': '(filtrado de un total de _MAX_ registros)',
+            'sInfoPostFix': '',
+            'sSearch': 'Buscar:',
+            'sUrl': '',
+            'sInfoThousands': ',',
+            'sLoadingRecords': 'Cargando...',
+            'oPaginate': {
+                'sFirst': 'Primero',
+                'sLast': 'Último',
+                'sNext': 'Siguiente',
+                'sPrevious': 'Anterior'
+            },
+            'oAria': {
+                'sSortAscending': ': Activar para ordenar la columna de manera ascendente',
+                'sSortDescending': ': Activar para ordenar la columna de manera descendente'
+            }
+        },
+
+            // "processing": true,
+            "serverSide": true,
+            "ajax": "{{url('api/files')}}",
+            "columns": [
                 {data: 'id'},
                 {data: 'name'},
                 {data: 'type', name: 'type'},
                 {data: 'btnMostrar'},
                 {data: 'btnEliminar'},
                 // {data: 'action', name: 'action', orderable: false, searchable: false}
+            ],
+            'columnDefs': [
+                {
+                    'targets': 0,
+                    'className': 'text-center'
+                }
             ]
         });
     });
