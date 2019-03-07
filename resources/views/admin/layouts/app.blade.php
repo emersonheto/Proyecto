@@ -10,9 +10,11 @@
 
     <title>{{ config('app.name', 'Proyecto-Dashboard') }}</title>
 
+
+    <script src="{{ asset('js/app.js') }}"  defer></script>
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/dropzone.js') }}" defer></script>
+    
 
     <!-- ICONOS  ya agegados 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" 
@@ -24,6 +26,7 @@
     <link href="{{ asset('css/dropzone.css')}}" rel="stylesheet">
 
     <link href="{{ asset('css/jquery.dataTables.min.css')}}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
     {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" rel="stylesheet"/> --}}
     {{-- <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet"/> --}}
@@ -196,11 +199,15 @@
             @include('admin.partials.error')
             <!-- TERMINA EL SIDEBAR -->
             @yield('content')
+          
         </div>
     </div>
 
+  
+
     <script src="{{ asset('js/slim.js') }}"></script>
     <script type="text/javascript">
+
         $(document).ready(function () {
             $('#sidebarCollapse').on('click', function () {
                 $("#sidebar").toggleClass('active');
@@ -211,25 +218,12 @@
                 $("#sidebar").toggleClass('active');
                 $(this).toggleClass('active');
             });
-
-
+            
         });
-
     </script>
-
- <script src="{{ asset('js/bootstrap.min.js') }}"></script> 
 <script src="{{ asset('js/jquery.dataTables.min.js') }}" defer></script> 
-
-{{-- <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> --}}
-{{-- <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>  --}}
-
-
+<script src="{{ asset('js/bootstrap.min.js') }}" defer></script> 
     @yield('scripts')
-{{-- <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-
-
-
-
 </body>
 
 </html>

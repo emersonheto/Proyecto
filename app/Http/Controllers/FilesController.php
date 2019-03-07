@@ -263,9 +263,9 @@ class FilesController extends Controller
             // }
     }
   
-    public function destroy(Request $request)
+    public function destroy($id)
     { 
-        $file=File::findOrFail($request->file_id);//agregamos la variable del modal
+        $file=File::findOrFail($id);//agregamos la variable del modal
        // dd($file);
         //$file=File::findOrFail($request->get('file_id'));     // son lo mismo
         //$rutaDelArchivo='/public/'.$this->getUserFolder().'/'.$file->type.'/'.$file->name;      
@@ -276,6 +276,7 @@ class FilesController extends Controller
            if (Storage::disk('local')->delete($rutaDelArchivo))
            {
                 $file->delete();
+                // return back();
                 return redirect('file.documents')->with('info',['success','El archivo se eliminó correctamente']);
            }
         }

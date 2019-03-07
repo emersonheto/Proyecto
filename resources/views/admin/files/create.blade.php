@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('page','Creacion de Archivos  DE CASA')
+@section('page','Creacion de Archivos')
 
 @if (Session::has('message'))
 	<div class="alert alert-info">{{ Session::get('message') }}</div>

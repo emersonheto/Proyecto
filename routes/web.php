@@ -28,7 +28,7 @@ Route::get('archivos/documentos', 'FilesController@documents') ->name('file.docu
 Route::get('archivos/search', 'FilesController@getData') ->name('file.getData');
 Route::post('archivos/subir', 'FilesController@store')   ->name('file.store');
 //Route::post('archivos/editar/{id}', 'FilesController@edit');
-Route::patch('archivos/eliminar/{id}', 'FilesController@destroy')->name('file.destroy');
+Route::post('archivos/eliminar/{id}', 'FilesController@destroy')->name('file.destroy');
 
 
 //ROLES

@@ -27,23 +27,29 @@ Route::get('files', function ()
         $type=$file->type;
         
         $storage=asset('storage');
-        $storage=public_path('storage');
+        
+       
+
+        // $storage=asset('storage')/ $file->name;
         if ($type=="image"||$ex=="pdf"||$ex=="PDF")
-        { 
-               return "<button class='btn btn-sm btn-primary  mt-1' style='width: 90px;'
-               target='_blank' href='$storage $file->name'>
-               <i class='fas  fa-eye'></i> Ver</button> ";
+        {
+               return "<a class='btn btn-sm btn-primary  mt-1' style='width: 90px;'
+               target='_blank' href=".$storage."/".$file->name."> <i class='fas  fa-eye'></i> Ver</a> ";
         }
         else
         {
-            return "<button  class='btn btn-sm btn-primary  mt-1' style='width: 90px;' target='_blank' href='$storage$file->name'>
-               <i class='fas fa-download'></i> Descarga</button>"; 
+            return "<a  class='btn btn-sm btn-primary  mt-1' style='width: 90px;' target='_blank' href=".$storage."/".$file->name.">
+               <i class='fas fa-download'></i> Descarga</a>"; 
         }
     })
     ->addColumn('btnEliminar',function($file){
-        $storage=asset('storage');        
-        return  "<button type='submit' class='btn btn-danger  btn-sm mt-1' style='width: 90px;' data-toggle='modal' data-target='#deleteModal'
-        data-file-id=$file->id> <i class='fas fa-trash'></i> Delete</button>";        
+       
+        return  "<button type='submit'  class='btn btn-danger alertaa  btn-sm mt-1' style='width: 90px;' 
+         data-file-id=$file->id  data-file-name=$file->name > <i class='fas fa-trash'></i> Delete</button>"; 
+         
+   
+         
+
     })
     ->rawColumns(['btnMostrar','btnEliminar'])  
     ->toJson();

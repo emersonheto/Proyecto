@@ -1,106 +1,14 @@
 @extends('admin.layouts.app')
 @section('page','Documentos')
 @section('content')
-{{-- 
     <div class="container">
-       
-        
-        <div class="row">
-            <div class="col-sm-12 table-responsive">              
-                        @csrf
-                    <div class="input-group navbar-form float-right">
-
-                        <input type="text" id='nameSearch'  name='nameSearch' class='form-control float-right' 
-                            aria-describedby="search" placeholder="Buscar">
-
-                        <span class="input-group-text " id="search"><i class='fa fa-search'></i></span>
-                   </div>  
-            <hr>
-            <table class='table table-hover'>
-                <thead>
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col">NOMBRE</th>
-                        <th scope="col">SUBIDO</th>
-                        <th scope="col">VER</th>
-                        <th scope="col">ELIMINAR</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($documents as $document)
-                    {{-- <iframe width="400" height="400" src="https://docs.google.com/viewer?url={{ asset('img/files/pdf.svg') }}&embedded=true"  frameborder="0"></iframe> --}}
-                  {{--       <tr>
-                            <th scope='row'> 
-                            @if ($document->extension=='pdf'|| $document->extension=='pdf')
-                                <img class='img-responsive' width="30px" src=" {{ asset('img/files/pdf.svg') }} " alt="">    
-                            @endif
-                            @if ($document->extension=='xlsx'|| $document->extension=='XLSX')
-                                <img class='img-responsive'width="30px" src=" {{ asset('img/files/excel.svg') }} " alt="">    
-                            @endif
-                            @if ($document->extension=='docx'|| $document->extension=='DOCX')
-                                <img class='img-responsive'width="30px" src=" {{ asset('img/files/word.svg') }} " alt="">    
-                            @endif     
-                            @if ($document->extension=='doc'|| $document->extension=='DOC')
-                                <img class='img-responsive'width="30px" src=" {{ asset('img/files/word.svg') }} " alt="">    
-                            @endif
-                            @if ($document->type=='image')
-                                <img class='img-responsive'width="30px" src=" {{ asset('img/files/img.png') }} " alt="">    
-                            @endif                              
-
-                            </th>
-                            <th scope='row'> {{ $document->name }} </th>
-                            <th scope='row'> {{ $document->created_at->DiffForHumans()}} </th>
-                            <th scope='row'>
-                            @if ($document->extension=='pdf'|| $document->extension=='PDF'|| $document->type=='image')
-                                <a class='btn btn-primary ' style="width:70%;" target="_blank" href="{{ asset('storage') }}/{{$document->name}}">
-                                <i class="fas  fa-1x fa-eye"></i> Ver</a>                          
-                            @else
-                                <a class='btn btn-primary '  style="width: 70%;"  target="_blank" href="{{asset('storage')}}/{{$document->name}}">
-                                    <i class="fas fa-1x fa-download "></i> Descargar
-                                </a> 
-                            @endif
-                            </th>
-                        <th scope="row">
-                               {{-- BOTON QUE INCLUIRA AL MODAL --}}
-                          {{--       <button type="submit" class='btn btn-danger mt-1 ' data-toggle="modal" data-target="#deleteModal"
-                               data-file-id={{$document->id}}> <i class="fas fa-trash"></i> Eliminar</button>
-                            </th>
-                        </tr>
-                    </tbody>
-                    @empty
-                    <div class="container mb-5">
-                        <div class="alert alert-warning " role='alert'>
-                            <span class="closebtn" onclick="this.parentElement.style.display='none';">x
-                            </span>
-                            <strong>¡Atención!</strong> No tienes ningún Documento
-                        </div>
-                    </div>
-                    @endforelse
-               
-            </table> 
-            <div class='float-right '>
-                {{ $documents->links() }}           
-            </div>
-           </div>
-        </div>   
-       
-        {{--ADD ARCHIVO DONDE SE ENCUENTRA EL MODAL --}}
-    
-    {{-- </div> --}}
- 
-
-
-
-    <div class="container">
-        <div class="row">
+        <div class="row">                
             <div class="col-md-12 col-sm-8">
-                <div class="panel panel-default">
                     <div class="card-header">Data Table Demo</div>
     
                     <div class="card-body">
-                            {{-- table-striped  --}}
                             <table class="table table-hover  
-                            table-bordered table-striped  datatable"  >
+                            table-bordered table-striped  " id="datatable-documentos" >
                                 <thead>
                                     <tr>
                                         <th width="5px" >Id</th>
@@ -110,25 +18,25 @@
                                         <th width="5px">Eliminar</th>
                                     </tr>
                                 </thead>
-                               
+                                @csrf
                             </table>
-                       
+                        </div>
+                        {{-- </div> --}}
+                        {{-- @include('admin.partials.modals.files') --}}
                     </div>
                 </div>
-                @include('admin.partials.modals.files')
             </div>
-        </div>
-    </div>
-
 @endsection
 
-@section('scripts')
-    @include('admin.partials.js.deleteModal')   
-   
-    <script type="text/javascript">    
+ 
 
+@section('scripts')
+    {{-- @include('admin.partials.js.deleteModal')    --}}
+   
+    <script type="text/javascript"> 
+   
     $(document).ready(function() {
-        $('.datatable').DataTable({
+        $('#datatable-documentos').DataTable({
         'language': {
             'sProcessing': 'Procesando...',
             
@@ -162,7 +70,7 @@
             }
         },
 
-            // "processing": true,
+            "processing": true,
             "serverSide": true,
             "ajax": "{{url('api/files')}}",
             "columns": [
@@ -180,6 +88,66 @@
                 }
             ]
         });
+
+        
+        $('#datatable-documentos').on("click",".alertaa",function(e)
+        {            
+            var btn = $(e.currentTarget)
+            // console.log(btn); 
+            // return;
+            var file_id = btn.data('file-id');
+            var file_name= btn.data('file-name');          
+            var token= $('input[name="_token"]').val(); 
+            var data=new FormData();
+            data.append('_token',token);
+           
+
+                 Swal.fire({
+                    title: 'Estas seguro de eliminar este archivo?<br>'+file_id+'<br><br>',
+                    text: "No podras revertir este cambio!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, borralo!'
+                    }).then((result) => {
+                    if (result.value) {
+
+                         $.ajax({
+                            url:"{{route('file.destroy','21')}}",
+                            method:"POST",
+                            data:data,
+                            dataType:'JSON',
+                            contentType:false,
+                            cache:false,
+                            processData:false,
+                            success:function(data)
+                            {
+
+                                Swal.fire(
+                                'Borrado!',
+                                'Tu archivo ha sido borrado.',
+                                'success'
+                                )
+
+                                // $('#message').css('display','block');
+                                // $('#message').html(data.message);
+                                // $('#message').addClass(data.class_name);
+                                // $('#uploaded_image').html(data.uploaded_image);
+                            }
+                        });   
+
+                        
+                    }
+                    })
+            
+        }); 
+
+
+
+
+
+
     });
     </script>
         {{-- <script>

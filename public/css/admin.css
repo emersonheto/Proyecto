@@ -363,6 +363,7 @@ button.btn.btn-primary.file {
 
 .modalCenter {
   top: 50% !important;
+ 
   -webkit-transform: translateY(-60%);
           transform: translateY(-60%);
 }
