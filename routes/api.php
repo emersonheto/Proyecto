@@ -41,16 +41,26 @@ Route::get('files', function ()
             return "<a  class='btn btn-sm btn-primary  mt-1' style='width: 90px;' target='_blank' href=".$storage."/".$file->name.">
                <i class='fas fa-download'></i> Descarga</a>"; 
         }
-    })
+    })    
     ->addColumn('btnEliminar',function($file){
-       
-        return  "<button type='submit'  class='btn btn-danger alertaa  btn-sm mt-1' style='width: 90px;' 
-         data-file-id=$file->id  data-file-name=$file->name > <i class='fas fa-trash'></i> Delete</button>"; 
-         
-   
-         
+        
+        $RUTA=route('file.destroy',$file->id);
+        
+        $botoncito= "";
+        // if(Auth::user()->hasRole('admin'))
+        // {
+            $botoncito= "<form action=$RUTA method='DELETE'>
+        <button    class='btn btn-danger alertaa  btn-sm mt-1' style='width: 90px;' 
+        data-file-id=$file->id  data-file-name=$file->name >
+        <i class='fas fa-trash'></i> Delete</button></form> ";
+        // }
+        return $botoncito;
 
     })
-    ->rawColumns(['btnMostrar','btnEliminar'])  
+    ->addColumn('btnNull','<a>Nada</a>')
+    ->rawColumns(['btnMostrar','btnEliminar','btnNull'])  
     ->toJson();
+
+
+
 });

@@ -95,7 +95,6 @@ class FilesController extends Controller
         ->make(true);
     }
 
-
     //FIN DE MOSTRAR LOS ARCHIVOS SEGUN EL TIPO DE ARCHIVO
 
      //PARA ALMACENAR LOS ARCHIVOS
@@ -138,148 +137,28 @@ class FilesController extends Controller
             return response()->json("Error al subir archivo.", 401); 
         }
   
-        //VALIDAMOS LOS ARCHIVOS CON VALIDATE
-        // $this->validate(request(),[
-        //     'file.*'=>'required|file|mimes:' .$all_ext. '|max:' .$max_size
-        // ]);        
-        // CARGAMOS LAS VARIABLES 
-        // $this->validate(request(),[
-        //     'file' => 'required',
-        //     'file.*'=> 'mimes:'.$all_ext,  
-        //     'file' => 'max:'.$max_size            
-        // //'file.*'=>'required|file|mimes:' .$all_ext. '|max:' .$max_size
-        // ]);
-
-
-
-        // *****************************************************************
-        // if ($request->hasFile('file'))
-        // {    
-        //     $file_array=$request->file('file');
-
-        //     $conteo=count($file_array);
-                      
-
-        //     foreach ($file_array as $file ) 
-        //     {
-        //         $ldate = date('Ymd');
-        //         $nombre=$file->getClientOriginalName();
-        //         $ext=$file->getClientOriginalExtension();
-        //         $type=$this->getType($ext);
-        //         $file_name=$ldate."_".rand(1,999)."_".$nombre;
-        //        // $filePath = "/Store/" . date("Y") . '/' . date("m") . "/" . $file_name;
-        //         $filePath = "/public/".$this->getUserFolder()."/".$type."/";
-
-
-        //         // print_r($file_name.":::::pathname : ".$filePath);                
-        //         // echo "<br>";                        
-                
-        //          try 
-        //         {
-        //             $uploadFile=new File();   
-        //             if ( $uploadFile::create([
-        //                 'name'=>$file_name,
-        //                 'type'=>$type,
-        //                 'extension'=>$ext,
-        //                 'user_id'=>Auth::id()
-        //              ]))
-                     
-        //             {
-        //                 if (Storage::putFileAs($filePath,$file,$file_name))
-        //                 {                  //NOMBRE DE CARPETA //TIPO ARCHIVO DEL FORM//FILE= NAME DEL FORM//,NOMBREDOC AGREGANDO SU EXTENSION
-        //                    Session::flash('message', 'se subio este archivo'.$file_name); 
-                    
-        //                 }
-        //                 else{
-                        
-        //                     return back()->withErrors(['SQLerror'=>'No se pudo guardar archivo en carpeta']);
-        //                 }
-        //             }
-                    
-
-        //         }
-        //         catch (QueryException $ex) 
-        //         {
-        //             // return back()->withErrors(['SQLerror'=>'No se pudo ingresar a la base de datos']);
-        //             return back()->withErrors(['SQLerror'=>'No se pudo ingresar a la base de datos '.$ex->getMessage()]);
-        //         }
-              
-
-        //     }
-        
-        //     return back()->with('info',['success','El archivo se ha subido correctamente']);
-
-        // }    
-// *end//////////*********************************************************** */
-        // $validator = Validator::make(
-        //     $input_data, [
-        //     'image_file.*' => 'required|mimes:jpg,jpeg,png,bmp|max:20000'
-        //     ],[
-        //         'image_file.*.required' => 'Please upload an image',
-        //         'image_file.*.mimes' => 'Only jpeg,png and bmp images are allowed',
-        //         'image_file.*.max' => 'Sorry! Maximum allowed size for an image is 20MB',
-        //     ]
-        // );
-
-        // if ($validator->fails()) {
-        //     // Validation error.. 
-        // }
-        //$files=$request->file('file');
-        
-        // foreach ($request->file('file') as $file) {
-          
-        //         $name=$file->getClientOriginalName();
-        //         //$name=time().$file->getClientOriginalExtension();
-        //         $ext=$file->getClientOriginalExtension();
-        //         $type=$this->getType($ext);
-
-        //         $uploadFile=new File();
-
-        //         print_r("<br>");
-        //         print_r($name." ".$ext." ".$type);
-
-        // }
-
-        // $input_data = $request->all();
-
-            // try {
-            //         $uploadFile::create([
-            //             'name'=>$name,
-            //             'type'=>$type,
-            //             'extension'=>$ext,
-            //             'user_id'=>Auth::id()
-            //         ]);
-            
-            // } catch (QueryException $ex) {
-            // // return back()->withErrors(['SQLerror'=>'No se pudo ingresar a la base de datos']);
-            //     return back()->withErrors(['SQLerror'=>'No se pudo ingresar a la base de datos '.$ex->getMessage()]);
-            // }
-            // // se crea la carpeta y se guarda el archivo con su nombre y extension 
-            // if (Storage::putFileAs('/public/'.$this->getUserFolder().'/'.$type.'/',$file,$name.'.'.$ext))
-            // {                      //NOMBRE DE CARPETA //TIPO ARCHIVO DEL FORM//FILE= NAME DEL FORM//,NOMBREDOC AGREGANDO SU EXTENSION
-            //     return back()->with('info',['success','El archivo se ha subido correctamente']);     
-            // }else{
-            //     return back()->withErrors(['SQLerror'=>'No se pudo guardar archivo en carpeta']);
-            // }
+     
     }
   
     public function destroy($id)
     { 
         $file=File::findOrFail($id);//agregamos la variable del modal
-       // dd($file);
-        //$file=File::findOrFail($request->get('file_id'));     // son lo mismo
-        //$rutaDelArchivo='/public/'.$this->getUserFolder().'/'.$file->type.'/'.$file->name;      
-        $rutaDelArchivo='/public/'.$file->name;      
+       
+        // $rutaDelArchivo='/public/'.$file->name;      
         
-        if (Storage::disk('local')->exists($rutaDelArchivo)) 
-        {
-           if (Storage::disk('local')->delete($rutaDelArchivo))
-           {
+        // if (Storage::disk('local')->exists($rutaDelArchivo)) 
+        // {
+        //    if (Storage::disk('local')->delete($rutaDelArchivo))
+        //    {
                 $file->delete();
-                // return back();
-                return redirect('file.documents')->with('info',['success','El archivo se eliminó correctamente']);
-           }
-        }
+        //         // return back();
+        //         return redirect('file.documents')->with('info',['success','El archivo se eliminó correctamente']);
+        //    }
+        // }
+
+        return response()->json([
+            'message' => 'Articulo Eliminado'
+          ]); 
     }
 
     private  function getType($ext)
