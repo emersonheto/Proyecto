@@ -57,6 +57,8 @@ class FilesController extends Controller
     //     return view('admin.files.type.documents',\compact('documents','folder','roles'));
         
     // }
+
+    
     public function  documents()
     {         
         return view('admin.files.type.documents');       
@@ -64,37 +66,45 @@ class FilesController extends Controller
 
     public function getData()
     {
-        $files=File::all();
+      return datatables()
+        ->eloquent(File::query())
+        ->addColumn('btnOperaciones',function($file){ 
+            $btn="";    $RUTA=route('file.destroy',$file->id);       
+            $ex=$file->extension; $type=$file->type; $storage=asset('storage');
 
-        return DataTables::of($files)
-        ->addColumn('btnMostrar',function($file){
-            
-            $ex=$file->extension;
-            $type=$file->type;
-            $storage=asset('storage');
-            if ($type=="image"||$ex=="pdf"||$ex=="PDF")
-            { 
-                   return "<button class='btn btn-sm btn-primary  mt-1' style='width: 90px;' target='_blank' href='.$storage/$file->name.'>
-                   <i class='fas  fa-eye'></i> Ver</button> ";
+            if ($type=="image"||$ex=="pdf"||$ex=="PDF"||$ex=="mp4")
+            {
+                $btn1="<a class='btn btn-sm btn-primary   mt-1' style='width: 90px;'
+                target='_blank' href=".$storage."/".$file->name."> <i class='fas  fa-eye'></i> Ver</a> ";
             }
             else
             {
-                return "<button  class='btn btn-sm btn-primary  mt-1' style='width: 90px;' target='_blank' href='$storage/$file->name'>
-                   <i class='fas fa-download'></i> Descarga</button>"; 
+                $btn1="<a  class='btn btn-sm btn-primary  mt-1' style='width: 90px;' target='_blank' href=".$storage."/".$file->name.">
+                <i class='fas fa-download'></i> Descarga</a>"; 
             }
+
+            if(Auth::user()->hasRole('Admin'))
+            { 
+                $btn="<form class='formEliminar' action=$RUTA method='DELETE'>
+                    <div class='row justify-content-md-center'>
+                       <div class='col'> $btn1 </div>
+                       <div class='col'> <button  class='btn btn-danger alertaa  btn-sm mt-1' style='width: 90px;' 
+                        data-file-id=$file->id  data-file-name=$file->name >
+                        <i class='fas fa-trash'></i> Delete</button>
+                       </div>
+                    </div>
+                </form>";
+            }
+            return $btn;
         })
-        ->addColumn('btnEliminar',function($file){           
-            
-            $storage=asset('storage');
-            
-            return  "<button type='submit' class='btn btn-danger  btn-sm mt-1' style='width: 90px;' data-toggle='modal' data-target='#deleteModal'
-            data-file-id=$file->id> <i class='fas fa-trash'></i> Delete</button>";
-            
-        })
-        ->rawColumns(['btnMostrar','btnEliminar'])   
-        ->make(true);
+        ->rawColumns(['btnOperaciones'])  
+        ->toJson();
     }
 
+    public function prueba()
+    {
+        dd(Auth::user()->hasRole('Admin'));
+    }   
     //FIN DE MOSTRAR LOS ARCHIVOS SEGUN EL TIPO DE ARCHIVO
 
      //PARA ALMACENAR LOS ARCHIVOS
@@ -119,22 +129,18 @@ class FilesController extends Controller
             {
                 $file->move(public_path('storage'),$new_name);
                         
-                return response()->json([
-                'message'=>'Imagen '.$new_name.' cargada correctamente'. public_path('storage') ,
-                'uploaded_image'=>'<img class="mt-4" style="width:20%" src="'.asset('storage').'/'.$new_name.'"/>',
-                'class_name' =>'alert-success'
-                ]); 
+                // return response()->json([
+                // 'message'=>'Imagen '.$new_name.' cargada correctamente'. public_path('storage') ,
+                // 'uploaded_image'=>'<img class="mt-4" style="width:20%" src="'.asset('storage').'/'.$new_name.'"/>',
+                // 'class_name' =>'alert-success'
+                // ]); 
             }
             else
             {
-                return response()->json([
-                    'message'=>'Error al ingresar el archivo a la base de datos',
-                    'uploaded_image'=>'',
-                    'class_name' =>'alert-danger'
-                ]); 
+                return response()->json("Error al guardar en bd. linea 140", 401); 
             }
         } catch (\Exception $err) {
-            return response()->json("Error al subir archivo.", 401); 
+            return response()->json("Error al subir archivo. linea 143", 401); 
         }
   
      
@@ -144,17 +150,17 @@ class FilesController extends Controller
     { 
         $file=File::findOrFail($id);//agregamos la variable del modal
        
-        // $rutaDelArchivo='/public/'.$file->name;      
-        
-        // if (Storage::disk('local')->exists($rutaDelArchivo)) 
-        // {
-        //    if (Storage::disk('local')->delete($rutaDelArchivo))
-        //    {
+        $rutaDelArchivo='/public/'.$file->name;      
+     
+         if (Storage::disk('local')->exists($rutaDelArchivo)) 
+         {
+            if (Storage::disk('local')->delete($rutaDelArchivo))
+            {
                 $file->delete();
-        //         // return back();
-        //         return redirect('file.documents')->with('info',['success','El archivo se eliminó correctamente']);
-        //    }
-        // }
+                 // return back();
+        //          return redirect('file.documents')->with('info',['success','El archivo se eliminó correctamente']);
+            }
+         }
 
         return response()->json([
             'message' => 'Articulo Eliminado'

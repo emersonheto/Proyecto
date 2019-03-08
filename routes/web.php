@@ -29,7 +29,10 @@ Route::get('archivos/search', 'FilesController@getData') ->name('file.getData');
 Route::post('archivos/subir', 'FilesController@store')   ->name('file.store');
 //Route::post('archivos/editar/{id}', 'FilesController@edit');
 Route::delete('archivos/eliminar/{id}','FilesController@destroy')->name('file.destroy');
+Route::get('files','FilesController@getData')->name('file.gettabla');
 
+
+Route::get('pruebita','FilesController@prueba')->name('file.prueba');
 
 //ROLES
 Route::get('roles','Admin\RolesController@index')   ->name('role.index');

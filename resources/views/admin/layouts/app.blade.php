@@ -19,7 +19,9 @@
     <link href="{{ asset('css/admin.css')}}" rel="stylesheet">
     <link href="{{ asset('css/dropzone.css')}}" rel="stylesheet">
 
-    <link href="{{ asset('css/jquery.dataTables.min.css')}}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/jquery.dataTables.min.css')}}" rel="stylesheet"> --}}
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
 
@@ -220,7 +222,11 @@
         });
 
     </script>
-    <script src="{{ asset('js/jquery.dataTables.min.js') }}" defer></script>
+    {{-- <script src="{{ asset('js/jquery.dataTables.min.js') }}" defer></script> --}}
+        
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" defer></script>
+    {{-- <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js" defer></script> integracion al bootstrap--}}
+
     <script src="{{ asset('js/bootstrap.min.js') }}" defer></script>
     @yield('scripts')
 </body>
