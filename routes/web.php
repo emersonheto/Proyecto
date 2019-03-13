@@ -69,7 +69,7 @@ Route::patch('usuarios/{id}/editar','Admin\UsersController@update')   ->name('us
 Route::patch('usuarios/{id}/eliminar','Admin\UsersController@destroy')   ->name('user.destroy');
 
 
- 
+ //CLIENTES 
  Route::resource('clients', 'Admin\ClientsController');
 
 

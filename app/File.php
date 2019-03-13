@@ -13,9 +13,9 @@ class File extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function scopeSearch($query,$name)
-    {
-        return $query->where('name','LIKE',"%$name%");   
-    }
+    // public function scopeSearch($query,$name)
+    // {
+    //     return $query->where('name','LIKE',"%$name%");   
+    // }
 
 }
