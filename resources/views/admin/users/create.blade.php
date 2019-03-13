@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('page','Crear un nuevo rol')
+@section('page','Crear un nuevo Usuario')
     
 @section('content')
 <form  action="{{route('user.store') }}" method="POST" class="was-validated">

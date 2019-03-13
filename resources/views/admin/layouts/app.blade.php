@@ -147,10 +147,10 @@
                                 class="fas fa-users"></i> Clientes</a>
                         <ul class="collapse list-unstyled" id="clienteSubmenu">
                             <li>
-                                <a id='' href="{{ route('user.index') }}">Cliente</a>
+                                <a id='' href="{{ route('clients.index') }}">Lista Cliente</a>
                             </li>
                             <li>
-                                <a id='' href="{{ route('user.create') }}">Estacion de servicio</a>
+                                <a id='' href="{{ route('clients.create') }}">Crear Clientes</a>
                             </li>
                         </ul>
                     </li>
@@ -189,7 +189,7 @@
                         <ul class="nav navbar-nav ml-auto">
                             <li class="nav-item">
                                 {{-- lo hacemos dinamico con page --}}
-                                <a> @yield('page') </a>
+                                <h2> @yield('page') </h2>
                             </li>
                         </ul>
                     </div>
