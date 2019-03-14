@@ -3,26 +3,6 @@
 @section('content')
     <div class="container">
 
-
-            {{-- <form action=" {{ route('file.store') }}" class="dropzone"  id='dropzone' method="POST" enctype="multipart/form-data"
-            class="">
-                @csrf
-                    {{-- <div class="row d-flex flex-row justify-content-center align-items-center pt-3">
-                            <div class="form-group ">
-                                <label for="file">Selecciona un archivo para subirlo</label>				
-                                <input type="file"  class="form-control-file" name="file" id='file' multiple   required>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" name="upload" id="upload" class="btn btn-primary file">
-                                    Subir archivos
-                                </button>				
-                            </div>			
-                    </div> 
-            </form> --}}
-            {{-- <div class="mt-4">
-                <span id='uploaded_image'></span>
-            </div> --}}
-
         <div class="row">                
             <div class="col-md-12  ">
                     <div class="card-header"><H2>DATOS DE DOCUMENTOS</H2>     
@@ -48,16 +28,13 @@
                                 </table>
                         </form>        
                     </div>
-                    {{-- <img src=" {{ asset('img/process.gif') }} " alt=""> --}}
-                        {{-- </div> --}}
-                        {{-- @include('admin.partials.modals.files') --}}
+             
                     </div>
                 </div>
             </div>
 @endsection
 
-@section('scripts')
-    {{-- @include('admin.partials.js.deleteModal')    --}}
+@section('scripts')  
    
     <script type="text/javascript"> 
    

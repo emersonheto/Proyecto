@@ -143,16 +143,9 @@
                     </li>
 
                     <li>
-                        <a href="#clienteSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
-                                class="fas fa-users"></i> Clientes</a>
-                        <ul class="collapse list-unstyled" id="clienteSubmenu">
-                            <li>
-                                <a id='' href="{{ route('clients.index') }}">Lista Cliente</a>
-                            </li>
-                            <li>
-                                <a id='' href="{{ route('clients.create') }}">Crear Clientes</a>
-                            </li>
-                        </ul>
+                        <a href="{{ route('clients.index') }}"  ><i
+                        class="fas fa-users"></i> Clientes</a>
+                       
                     </li>
                 @endif 
 
@@ -214,10 +207,10 @@
                 $(this).toggleClass('active');
             });
 
-            $('#sidebarCollapse').on('click', function () {
-                $("#sidebar").toggleClass('active');
-                $(this).toggleClass('active');
-            });
+            // $('#sidebarCollapse').on('click', function () {
+            //     $("#sidebar").toggleClass('active');
+            //     $(this).toggleClass('active');
+            // });
 
         });
 

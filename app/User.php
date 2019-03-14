@@ -31,6 +31,9 @@ class User extends Authenticatable
     public function files(){
         return $this->hasMany(File::class);
     }
+    public function client(){   //cliente es como un perfil
+        return $this->hasOne(Client::class);
+    }
    // $roles=$user->getRolesNames();
    
     // public function setPasswordAttribute($password)

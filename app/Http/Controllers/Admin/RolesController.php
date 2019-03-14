@@ -53,7 +53,7 @@ class RolesController extends Controller
     public function update(Request $request, $id)
     {
         $role=Role::find($id);
-        $role->update($request->exept('permissions'));
+        $role->update($request->except('permissions'));
         $role->permissions()->sync($request->get('permissions'));        
         return back()->with('info',['success','Se ha actualizado el rol']);
     }

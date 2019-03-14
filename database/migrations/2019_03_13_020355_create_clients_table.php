@@ -5,29 +5,27 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateClientsTable extends Migration
-{
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-   
+{   
     public function up()
     {
-        Schema::create('clients', function (Blueprint $table) {
+        Schema::create('clients', function (Blueprint $table) {            
             $table->increments('id');
-
+            $table->string('ruc');
+            $table->string('razonsocial');
+            $table->string('bandera');
+            $table->string('direccion');
+            $table->string('grupo')->nullable();
+            $table->longText('contactos');
+            $table->boolean('activo')->default(1);
+            // RELACION
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+   
     public function down()
     {
-        Schema::dropIfExists('client');
+        Schema::dropIfExists('clients');
     }
 }

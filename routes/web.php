@@ -70,6 +70,7 @@ Route::patch('usuarios/{id}/eliminar','Admin\UsersController@destroy')   ->name(
 
 
  //CLIENTES 
+ Route::get('clients/getData','Admin\ClientsController@getData')->name('client.gettabla');
  Route::resource('clients', 'Admin\ClientsController');
 
 
