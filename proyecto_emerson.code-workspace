@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "\\\\192.168.1.198\\Proyecto"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			".blade.php": "html"
+		},
+		"workbench.colorTheme": "Material Theme Darker High Contrast"
+	}
+}

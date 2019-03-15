@@ -5,7 +5,7 @@
 
 <div class="row">
    <div class="col-md-10 offset-md-1 bg-white card  " >
-         <form  id="Form_cliente" action=" {{route('clients.store')}} " method="POST" class="was-validated m-5">
+         <form  id="Form_cliente" action=" {{route('clients.store')}} " method="POST" class="was-validated m-5 " autocomplete="off" >
                @csrf 
                {{-- <input type="hidden" name="_method" value="PATCH"> --}}
                

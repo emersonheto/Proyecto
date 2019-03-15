@@ -30,133 +30,6 @@
 <body>
     <!-- AGREGAMOS EL SIDEBAR -->
     <div class="wrapper">
-
-        <!-- NAVBAR SUPERIOR-->
-          <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top alert-home">
-                    <a class="navbar-brand" href="{{ route('home')}}">
-                        <img src="{{asset('img/logo.svg')}}" width="30" height="30" class="d-inline-block align-top" alt="">
-                        Gasocentro
-                    </a>
-        
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarBS" aria-controls="navbarBS"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-        
-                    <div class="collapse navbar-collapse" id="navbarBS">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="{{ route('home')}}">Inicio <span class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Características</a>
-                            </li>
-                            <li class="nav-item" style="margin: 0 10px 0 10px;" >
-                                <div class="dropdown">
-                                    <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fa fa-th" ></i>
-                                    </button>
-
-                                    <div class="dropdown-menu dropdown-menu-right text-center" style=" min-width: 20rem; padding: 0.5rem 0;">
-                                            <form class="px-4 py-3">
-                                        <div class="row">
-
-                                                <div class="col-md-4 ">
-                                                    <div class="product-panel-2"  style="cursor: pointer" onclick="">
-                                                        <button class="btn btn-xs btn-primary" title="Mi Perfil"  style="
-                                                        border-radius: 35px;
-                                                        font-size: 24px;
-                                                        line-height: 1.33;">
-                                                            <i class="fas fa-user-circle"></i>
-                                                        </button>
-                                                    </div>
-                                                </div> 
-                                                <div class="col-md-4 ">
-                                                        <div class="product-panel-2"  style="cursor: pointer" onclick="">
-                                                            <button class="btn btn-xs btn-success" title="Mis Archivos" style="
-                                                                border-radius: 35px;
-                                                                font-size: 24px;
-                                                                line-height: 1.33;">
-                                                                <i class="fas fa-file-upload"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div> 
-                                                    <div class="col-md-4 ">
-                                                        <div class="product-panel-2"  style="cursor: pointer" onclick="">
-                                                            <button class="btn btn-xs btn-danger" title="Asignar Roles"  style="
-                                                            border-radius: 35px;
-                                                            font-size: 24px;
-                                                            line-height: 1.33;">
-                                                            <i class="fas fa-unlock-alt"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div> 
-                                                        
-                                        </div>
-                                        {{-- <form class="px-4 py-3">
-                                            <div class="form-group">
-                                            <label for="exampleDropdownFormEmail1">Email address</label>
-                                            <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
-                                            </div>
-                                            <div class="form-group">
-                                            <label for="exampleDropdownFormPassword1">Password</label>
-                                            <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
-                                            </div>
-                                            <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="dropdownCheck">
-                                            <label class="form-check-label" for="dropdownCheck">
-                                                Remember me
-                                            </label>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Sign in</button>
-                                        </form> --}}
-                                            </form>
-                                        <div class="dropdown-divider"></div>
-                                        {{-- <div class="profile-usertitle">
-                                                <div class="profile-usertitle-name text-center"> {{ Auth::User()->name }} </div>
-                                                <div class="profile-usertitle-status text-center">{{ Auth::User()->email }}</div>
-                                                <div class="profile-usertitle-status text-center">{{ Auth::User()->rol }}</div>
-                                            </div> --}}
-                                        <div class="row">
-                                            
-                                                <div class="col-md-4">
-                                                    <img src=" {{asset('img')}}/{{Auth::User()->image}}" class="img-responsive" style="border-radius: 50%;"
-                                                        alt="" width="70%">
-                                                </div>
-
-                                                <div class="col-md-8">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <label class=" profile-usertitle-name font-weight-bold text-center"> {{ Auth::User()->name }}</label>
-
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <label class=" profile-usertitle-status text-center">{{ Auth::User()->email }}</label>
-
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                        </div>
-                                        <div class="dropdown-divider"></div>
-
-                                        @guest
-                                            <a href=" {{ route('login')}} " class="btn btn-sm btn-outline-primary">Ingresar</a>
-                                        
-                                        @else
-                                                <a href=" {{route('logout')}} " class="logout btn btn-sm btn-danger" style="color: white"
-                                                onclick="event.preventDefault();document.getElementById('logout-form').submit();" style="color: red">
-                                                    <i class="fas fa-power-off">
-                                                    </i> Cerrar sesión
-                                                </a>
-                                        @endguest
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>  
-
-
         <!-- Sidebar Holder -->
         <nav id="sidebar">
             <a class="navbar-brand ml-4 pt-4" href="#">
@@ -296,7 +169,7 @@
 
         <div id="content">
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top: 70px;">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
 
                     <button type="button" id="sidebarCollapse" class="navbar-btn">

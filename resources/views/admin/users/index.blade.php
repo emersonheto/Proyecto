@@ -53,7 +53,7 @@
 
 
 
-{{-- misasintonia
+{{-- misasinfonia
 
 @extends('admin.layouts.app')
 @section('page','Todos los Usuarios')

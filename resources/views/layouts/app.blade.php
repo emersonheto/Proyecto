@@ -26,7 +26,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top alert-home">
             <a class="navbar-brand" href="{{ route('home')}}">
                 <img src="{{asset('img/logo.svg')}}" width="30" height="30" class="d-inline-block align-top" alt="">
-                BuffaloSafe
+                BuffaloSafedcdddd
             </a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarBS" aria-controls="navbarBS"

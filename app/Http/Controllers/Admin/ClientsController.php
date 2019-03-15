@@ -15,6 +15,10 @@ class ClientsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');       
+    }  
     public function index()
     {
 
@@ -64,7 +68,7 @@ class ClientsController extends Controller
         $cliente->user_id=$usuario->id;
         $cliente->save();        
 
-        return redirect('admin.clients.index')->with('info',['success','Se ha creado el Cliente']);  
+        return view('admin.clients.index')->with('info',['success','Se ha creado el Cliente']);  
     }
 
     /**
@@ -76,7 +80,7 @@ class ClientsController extends Controller
     public function getData()
     {
       return datatables()
-        ->eloquent(Client::query())
+        ->eloquent(Client::query()->where('activo',1)) 
         ->addColumn('emailPrincipal',function($client){ 
             $contactos=json_decode($client->contactos);
             $emailPrincipal=$contactos[0]->correo;
@@ -85,22 +89,21 @@ class ClientsController extends Controller
         })
         ->addColumn('btnOperaciones',function($client){ 
             $btn="";   
-            //  $RUTA=route('client.destroy',$client->id);        
-            $RUTA="#";
+            $RUTA=route('client.PonerInactivo',$client->id);
             
             $btnDetalle="<a  class='btn btn-sm btn-outline-success  mr-3   mostrar-detalle  ' data-id='$client->id' >
             <i class='fas fa-eye'></i> </a>";
             
-            $btnEditar="<a  class='btn btn-sm btn-outline-primary  ml-0'  href='#'>
+            $btnEditar="<a  class='btn btn-sm btn-outline-primary  ml-0'  href='".route('clients.edit',$client->id)."'>
             <i class='fas fa-edit'></i> </a>";
            
             // if(Auth::user()->hasRole('Admin'))
             // { 
-                $btn="<form class='formEliminar' action=$RUTA method='DELETE'>
+                $btn="<form class='formEliminar' action=$RUTA method='POST'>
                     <div class='row justify-content-md-center'>
                        $btnDetalle   
                        $btnEditar   
-                       <button  class='btn btn-outline-danger  btn_eliminar  btn-sm ml-3' >
+                       <button  class='btn btn-outline-danger  btn_eliminar   btn-sm ml-3' >
                         <i class='fas fa-trash'></i> </button>
                        </div>
                     </div>
@@ -128,7 +131,8 @@ class ClientsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $client=Client::find($id);
+        return view('admin.clients.edit',compact('client'));  
     }
 
     /**
@@ -149,8 +153,13 @@ class ClientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+
+    //en vez de eliminar
+    public function PonerInactivo($id)
     {
-        //
+        $client=Client::findOrFail($id);  
+        $client->activo=0;
+        $client->save();
+        return back()->with('info',['success','Cliente Actualizado a  activo = 0']);
     }
 }
