@@ -12,18 +12,20 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        //$this->middleware(['role:Admin']);
+        $this->middleware(['role:Admin']);
     }
+    
     public function index()
     {
-        $users=User::all();        
+        $users=User::join("user_has_roles","users.id","=","user_has_roles.user_id")->get();
+        // ->where("role_id","!=","2")->get();// distinto de 2 ya que 2 es cliente 
         return view('admin.users.index',compact('users'));
     }
 
     public function create()
     {
         $roles=Role::all();
-        return view('admin.users.create',compact('roles')); 
+        return view('admin.users.create', compact('roles')); 
     }
     
     public function store(Request $request)
@@ -45,7 +47,6 @@ class UsersController extends Controller
         return view('admin.users.show',compact('user'));
     }
 
-    
     public function edit($id)
     {
         $user=User::find($id);
@@ -53,17 +54,14 @@ class UsersController extends Controller
         return view('admin.users.edit',compact('roles','user'));
     }
 
-    
     public function update(Request $request, $id)
     {
         $user=User::find($id);
         $user->update($request->except('roles'));
         $user->roles()->sync($request->get('roles'));        
         return redirect()->route('user.index')->with('info',['success','Se han actualizado los datos del usuario']);
-        //usamos back cuando queremos que se quede en la misma pagina
     }
 
-    
     public function destroy($id)
     {
         $user=User::find($id)->delete();

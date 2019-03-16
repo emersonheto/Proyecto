@@ -2,24 +2,17 @@
 @section('page','Lista de Clientes')
 @section('content')
 <div class="container">
-
     <div class="row">
         <div class="col-md-10  offset-md-1 bg-white   ">
             <div class="card-header">
                 <H2>LISTA DE CLIENTES</H2>
-                {{-- <a href="{{route('file.prueba')}}" class="btn btn-primary">
-                    <h3>prueba</h3>
-                </a> --}}
             </div>
             <div class="col-md-10 mb-5">
                 <a class="btn btn-outline-success" href=" {{ route('clients.create') }} "><i class="fas fa-plus-circle"></i>
                     Agregar un Cliente</a>
             </div>
             <div class="card-body">
-                @csrf
-                <table class="table table-hover    
-                             table-striped " id="datatable-clientes"
-                    style="width:100%">
+                <table class="table table-hover table-striped" id="datatable-clientes" style="width:100%">
                     <thead>
                         <tr>
                             <th width="5">Ruc</th>
@@ -30,7 +23,6 @@
                             <th width=""> </th>
                         </tr>
                     </thead>
-                    @csrf
                 </table>
             </div>
         </div>
@@ -59,62 +51,60 @@
                 for (let index = 0; index < contactos.length; index++) {
                     const contacto = contactos[index];
                     filas +=
-                        `
-                            <tr>
-                                <td>${contacto.nombre}</td>
-                                <td>${contacto.correo}</td>
-                                <td>${contacto.cargo}</td>
-                                <td>${contacto.telefono}</td>                         
-                            </tr> 
-                            `
+                    `
+                        <tr>
+                            <td>${contacto.nombre}</td>
+                            <td>${contacto.correo}</td>
+                            <td>${contacto.cargo}</td>
+                            <td>${contacto.telefono}</td>                         
+                        </tr> 
+                    `
                 }
                 var html =
-                    `
-                        <div class="row" style="font-size:1rem">
-                            <div class=" col-md-3">
-                                <label class="float-left font-weight-bold" for=""> RUC :</label> <br>
-                                <label class="float-left font-weight-normal" id=''>20137926${data.ruc}   </label>
-                            </div>
+                `
+                    <div class="row" style="font-size:1rem">
+                        <div class=" col-md-4">
+                            <label class="float-left font-weight-bold"> RUC :</label> <br>
+                            <label class="float-left font-weight-normal">20137926${data.ruc}</label>
+                        </div>
+
+                        <div class=" col-md-8">
+                            <label class='float-left font-weight-bold'>Razon social : </label> <br>
+                            <label class='float-left font-weight-normal' style="text-align:left !important;">${data.razonsocial}</label>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class='float-left font-weight-bold'>Direccion : </label> <br>
+                            <label class='float-left font-weight-normal' style="text-align:left !important;" name="direccion">${data.direccion}</label>
+                        </div>
+
+                        <div class=" col-md-6">
+                            <label class='float-left font-weight-bold'>Bandera : </label> <br><br>
+                            <label class='float-left font-weight-normal' style="text-align:left !important;">${data.bandera}</label>
+                        </div>
                         
+                        <div class="col-md-6 ">
+                            <label class='float-left font-weight-bold' for="ClientGrupo">Grupo : </label> <br><br>
+                            <label class='float-left font-weight-normal' style="text-align:left !important;">${data.grupo}</label>
+                        </div>
 
-                            <div class=" col-md-6">
-                                <label class='float-left font-weight-bold' for="">Razon social : </label> <br>
-                                <label class='float-left font-weight-normal' id='' style="text-align:left !important;">GASOCENTRO & AUTOSERVICIOS REAL S.A.C ${data.razonsocial}  </label>
-                            </div>
-
-                            <div class="col-md-12 ">
-                                <label class='float-left font-weight-bold' for="">Direccion : </label><br>
-                                <label class='float-left font-weight-normal' style="text-align:left !important;" name="direccion" '>ESQ. PRÓCERES DE LA INDEPENDENCIA 2555 CON JR. LOS BRILLANTES COOP. DE VIV. LOS ANGELES ${data.direccion}  </label>
-                            </div>
-
-                            <div class=" col-md-6">
-                                <label class='float-left font-weight-bold' for="">Bandera : </label><br>
-                                <label class='float-left font-weight-normal' style="text-align:left !important;">Primax ${data.bandera} </label>
-                            
-                            </div>
-                            
-
-                            <div class="col-md-6 ">
-                                <label class='float-left font-weight-bold' for="ClientGrupo">Grupo : </label> <br>
-                                <label class='float-left font-weight-normal'  style="text-align:left !important;">ENERGIGAS ${data.grupo}  </label>
-                            </div>
-
-                            <div class="col-md-12 ">                                
-                                <table class="table">
-                                    <thead>
-                                    <th>Nombre</th>
-                                    <th>Correo</th>
-                                    <th>Cargo</th>
-                                    <th>Telefono</th>
-                                    </thead>
-                                    <tbody>
-                                    ${filas}                                      
-                                    </tbody>
-                                </table>
-                            </div>
-                        `;
+                        <div class="col-md-12 table-responsive table-sm">
+                            <table class="table">
+                                <thead>
+                                <th>Nombre</th>
+                                <th>Correo</th>
+                                <th>Cargo</th>
+                                <th>Telefono</th>
+                                </thead>
+                                <tbody>
+                                ${filas}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
                 Swal.fire({
-                    title: '<strong >  <u>Datos del Cliente </u></strong>',
+                    title: '<strong>  <u>Datos del Cliente</u> </strong>',
                     type: ' ',
                     html: html,
                     showCloseButton: false,
@@ -126,8 +116,7 @@
         return;
     });
 
-    //   FIN  MODAL VER DETALLES DEL  CLIENTE
-
+    // FIN  MODAL VER DETALLES DEL  CLIENTE
     $(document).ready(function () {
         //MOSTRAR DATATABLE
         var dtable = $('#datatable-clientes').DataTable({

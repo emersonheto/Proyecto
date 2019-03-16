@@ -25,8 +25,8 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top alert-home">
             <a class="navbar-brand" href="{{ route('home')}}">
-                <img src="{{asset('img/logo.svg')}}" width="30" height="30" class="d-inline-block align-top" alt="">
-                BuffaloSafedcdddd
+                <img src="{{asset('img/solu.jpg')}}" width="30" height="30" class="d-inline-block align-top" alt="">
+                <b class="text-primary">SOLUGRIFOS</b> <small><b> - Plan</b>  <b class="text-success">VERDE</b></small>
             </a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarBS" aria-controls="navbarBS"
@@ -36,7 +36,7 @@
 
             <div class="collapse navbar-collapse" id="navbarBS">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
+                    {{-- <li class="nav-item active">
                         <a class="nav-link" href="{{ route('home')}}">Inicio <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
@@ -50,7 +50,7 @@
                             <a class="dropdown-item" href="{{ route('secure')}}">Clientes</a>
                             <a class="dropdown-item" href="{{ route('secure')}}">Preguntas frecuentes</a>
                         </div>
-                    </li>
+                    </li> --}}
                         @guest
                             <li class="nav-item">
                                 <a href=" {{ route('login')}} " class="btn btn-outline-primary">Ingresar</a>
@@ -76,9 +76,9 @@
 
     @yield('content')
 
-    <div class="alert-home "></div>
+    {{-- <div class="alert-home "></div> --}}
 
-    <footer class="container py-5">
+    {{-- <footer class="container py-5">
         <div class="row">
             <div class="col-12 col-md">
                 <img src="{{asset('img/logo.svg')}}" width="100">
@@ -106,7 +106,7 @@
                 <h5>Medios de pago</h5>
                 <img class="img-fluid" src="http://3.bp.blogspot.com/-oumQWdMsBL8/Vh94mt2nYLI/AAAAAAAAANQ/qPwSgz1YgJc/s400/Payment%2BCard%2BNetworks%2BLogo.jpg">
             </div>
-    </footer>
+    </footer> --}}
 </body>
 
 </html>

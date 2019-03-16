@@ -22,7 +22,7 @@
       <div class="col-sm-6 mb-3">
           <label for="UserPassword">Contraseña del usuario </label>
             <input type="password" name="password" class='form-control is-valid' id='UserPassword'  required >
-            <div class="invalid-feedback">¡Debes de agregar un correo!</div>
+            <div class="invalid-feedback">¡Debes de agregar una contraseña!</div>
       </div>
 
       <div class="col-sm-6 mb-3">

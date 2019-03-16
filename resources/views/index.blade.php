@@ -12,7 +12,7 @@
                         <div class="card">
                             <div class="card-header">{{ __('Ingresa tu cuenta') }}</div>
                             <div class="card-body">
-                            <img src=" {{ asset('img/auth/login.svg') }} " class='mb-5 mt-3' width="100px">
+                                <img src=" {{ asset('img/auth/login.svg') }} " class='mb-5 mt-3' width="100px">
 
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
@@ -20,7 +20,8 @@
                                         <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                                         <div class="col-md-6">
-                                            <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                                            <!-- <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus> -->
+                                            <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="emersonheto@gmail.com" required autofocus>
 
                                             @if ($errors->has('email'))
                                                 <span class="invalid-feedback" role="alert">
@@ -34,7 +35,8 @@
                                         <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                                         <div class="col-md-6">
-                                            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                                            <!-- <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required> -->
+                                            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" value="123123" required>
 
                                             @if ($errors->has('password'))
                                                 <span class="invalid-feedback" role="alert">
@@ -61,12 +63,12 @@
                                             <button type="submit" class="btn btn-info">
                                                 {{ __('Login') }}
                                             </button>
-                                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                                    {{ __('Forgot Your Password?') }}
-                                                </a>
-                                                 <a class="btn btn-link" href="{{ route('register') }}">
-                                                    {{ __('¿No tienes una cuenta?') }}
-                                                </a>
+                                            <a class="btn btn-link" href="{{ route('password.request') }}">
+                                                {{ __('Forgot Your Password?') }}
+                                            </a>
+                                            <a class="btn btn-link" href="{{ route('register') }}">
+                                                {{ __('¿No tienes una cuenta?') }}
+                                            </a>
                                         </div>
                                     </div>
                                 </form>

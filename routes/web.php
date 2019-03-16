@@ -9,7 +9,6 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-
 */
 //FrontEnds
 Route::view('/','index')->name('home');
@@ -31,8 +30,11 @@ Route::post('archivos/subir', 'FilesController@store')   ->name('file.store');
 Route::delete('archivos/eliminar/{id}','FilesController@destroy')->name('file.destroy');
 Route::get('files','FilesController@getData')->name('file.gettabla');
 
-
 Route::get('pruebita','FilesController@prueba')->name('file.prueba');
+Route::get('pruebita2',function(){
+    //$list=App\Category_file::all();
+    return view ('admin.layouts.app2');
+})->name('file.prueba2');
 
 //ROLES
 Route::get('roles','Admin\RolesController@index')   ->name('role.index');
@@ -44,7 +46,6 @@ Route::get('roles/{id}','Admin\RolesController@show')   ->name('role.show');    
 Route::patch('roles/{id}/editar','Admin\RolesController@update')   ->name('role.update');
 //para eliminar roles
 Route::patch('roles/{id}/eliminar','Admin\RolesController@destroy')   ->name('role.destroy');
-
 
 //PERMISOS
 Route::get('permisos','Admin\PermissionsController@index')   ->name('permission.index');
@@ -70,6 +71,12 @@ Route::patch('usuarios/{id}/eliminar','Admin\UsersController@destroy')   ->name(
 
 
  //CLIENTES 
+ 
+    Route::get('client/documentos', 'FilesController@documentsClient') ->name('client.documents');
+    Route::get('client/files','FilesController@getDataClient')->name('file.getDocumentsClient');
+
+
+
  Route::get('clients/getData','Admin\ClientsController@getData')->name('client.gettabla');
  Route::POST('clients/eliminar/{id}','Admin\ClientsController@PonerInactivo')->name('client.PonerInactivo');
  Route::resource('clients', 'Admin\ClientsController');

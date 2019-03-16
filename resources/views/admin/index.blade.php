@@ -3,15 +3,13 @@
     
 @section('content')
 <!-- Page Content Holder  ESTO ESTA DENTRO DEL wrapper-->
-
-
-    <div class="panel panel-container container shadow-sm">
+<div class="panel panel-container container shadow-sm" style="padding: 0 20px 0 20px;">
         <div class="row">
             <div class="col-sm-6 col-md-3 col-lg-3 no-padding">
-                <div class="panel  panel-widget border-right">
-       <div class="row no-padding"><i class="fas fa-eye"></i>
+                <div class="panel panel-widget border-right">
+                    <div class="row no-padding"><i class="fas fa-eye"></i>
                         <div class="large">120</div>
-       <div class="dashboard-small"></div>
+                        <div class="dashboard-small"></div>
                     </div>
                 </div>
             </div>
@@ -40,18 +38,95 @@
                 </div>
             </div>
         </div>
-        <!--/.row-->
     </div>
 
-    <div class="mt-5 row">
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-3">
+        <div class="card mx-auto text-center panel-container" style="width:100%">
+            <h1>Perfil</h1>
+            <img class="card-img-top align-self-center" src="{{asset('img/user_perfil.svg')}}" style="width:40%;" alt="Card image">
+            <div class="card-body">
+                <a href="#" class="btn btn-primary">Ingresar</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card mx-auto text-center panel-container" style="width:100%">
+            <h1>Archivos</h1>
+            <img class="card-img-top align-self-center" src="{{asset('img/documents.svg')}}" style="width:40%;" alt="Card image">
+            <div class="card-body">
+                <a href="{{ route('file.documents') }}" class="btn btn-primary">Ingresar</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card mx-auto text-center panel-container" style="width:100%">
+            <h1>Roles</h1>
+            <img class="card-img-top align-self-center" src="{{asset('img/lock.svg')}}" style="width:40%;" alt="Card image">
+            <div class="card-body">
+                <a href="{{ route('role.index') }}" class="btn btn-primary">Ingresar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center mt-5">
+        <div class="col-md-3">
+            <div class="card mx-auto text-center panel-container" style="width:100%">
+                    <h1>Permisos</h1>
+                <img class="card-img-top align-self-center" src="{{asset('img/fingerprint.svg')}}" style="width:40%;" alt="Card image">
+                <div class="card-body">
+                    <a href="{{ route('permission.index') }}" class="btn btn-primary">Ingresar</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card mx-auto text-center panel-container" style="width:100%">
+                    <h1>Usuarios</h1>
+                <img class="card-img-top align-self-center" src="{{asset('img/users.svg')}}" style="width:40%;" alt="Card image">
+                <div class="card-body">
+                    <a href="{{ route('user.index') }}" class="btn btn-primary">Ingresar</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card mx-auto text-center panel-container" style="width:100%">
+                    <h1>Clientes</h1>
+                <img class="card-img-top align-self-center" src="{{asset('img/client.svg')}}" style="width:40%;" alt="Card image">
+                <div class="card-body">
+                    <a href="{{ route('clients.index') }}" class="btn btn-primary">Ingresar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    {{-- <div class="mt-5 row">
         <div class="col-md-6 mt-5">
             <canvas id="line-chart" width="100%" height="100%"></canvas>
         </div>
         <div class="col-md-6 mt-5">
             <canvas id="pie-chart" width="100%"></canvas>
         </div>
-    </div>
-
+    </div> --}}
+	<section id="footer">
+            <div class="container">
+                    <br><br>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center" alt="_blank">
+                        <p style=" color: #000;"><a style="font-weight: bold;" href="http://mcontrolenergy.com/" title="Ir a la Web" data-toggle="tooltip" data-placement="top"><b>MControl Energy </b></a><br>
+                             {{-- Dirección: Jr. Cuzco 440 - oficina 605 piso 6 Lima - Lima <br> --}}
+                             Telf.:494-6542 / 960-194-596 - Correo: ventas@mcontrolenergy.com<br>
+                             <u> ©Todos los derechos reservados.</u></p>
+                       
+                    </div>
+                </div>	
+            </div>
+        </section>
+        <!-- ./Footer -->
 </div>
 
 @endsection

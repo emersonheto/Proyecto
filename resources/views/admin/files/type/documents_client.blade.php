@@ -1,13 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('combo')
-    <label for="">Selec. Estación</label>
-    <Select class="custom-select col-md-5" id="select-client">
-        <option disabled selected value="nul">Selecciona</option>
-        @foreach($clients as $client)
-            <option value="{{ $client->razonsocial }}|{{ $client->id }}">{{ $client->razonsocial }}</option>
-        @endforeach
-    </Select>
+
 @endsection
 
 @section('page','Documentos')
@@ -16,7 +10,7 @@
     <div class="container">
         <div class="row">                
             <div class="col-md-12  ">
-                <h1 id="estac_selected">NOMBRE ESTACION SELECCIONADA</h1>
+                <h1 id="estac_selected"></h1>
                 <div class="nav-container" style="position:relative;">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
@@ -83,17 +77,6 @@
 
     $(document).ready(function(){   
         
-        $("#select-client").change((e)=>{
-            let $this = $(e.currentTarget)
-            let value = $this.val()
-
-            let estacion = value.split('|')[0]
-            let id = value.split('|')[1]
-            $("#estac_selected").text(estacion)
-            $("#estac_selected").attr('estacion', id)
-            $("#input_estacion").val(id)
-        })
-
         var dtable=$('#datatable-documentos').DataTable({
         'language': {
                         'sProcessing': " <img   src='{{ asset('img/process.gif') }}'>",
@@ -124,7 +107,7 @@
             "autoWidth": false,//para ordenar automaticamente los tr
             "serverSide": true,
             "ajax": {
-            "url":"{{route('file.gettabla')}}",
+            "url":"{{route('file.getDocumentsClient')}}",
             },            
             "columns": [
                 {data: 'id'},
@@ -208,83 +191,6 @@
 
 //  SCRIPT PARA SUBIR ARCHIVOS
 	$(document).ready(function(){
-
-const opts = {
-    dictDefaultMessage: " ",
-    maxFilesize: 2500,
-    // acceptedFiles: ".jpg",
-    init: function() {
-        this.on("complete", file => {
-            var removeButton = Dropzone.createElement(`<button class="btn btn-xs btn-primary">Remove file</button>`);
-                
-            // Capture the Dropzone instance as closure.
-            var _this = this;
-
-            // Listen to the click event
-            // removeButton.addEventListener("click", function(e) {
-                // Make sure the button click doesn't submit the form:
-                // e.preventDefault();
-                // e.stopPropagation();
-
-                // Remove the file preview.
-                // _this.removeFile(file);
-                // If you want to the delete the file on the server as well,
-                // you can do the AJAX request here.
-            // });
-            // Add the button to the file preview element.
-            // file.previewElement.appendChild(removeButton);
-
-            if( file.status == "success" ){
-                _this.removeFile(file);
-
-                dtable.ajax.reload( 
-                        function ( json ) {
-                            Swal.fire(
-                                'Agregado!',
-                                'Se ha subido el archivo.',
-                                'success'
-                                )
-                },false);
-            }
-        });
-
-        this.on('sending', function(file) {
-            if ( $("#input_estacion").val() == "0" ) {
-                Swal.fire(
-                    'Advertencia!',
-                    'Seleccionar una estación antes de subir un archivo.',
-                    'warning'
-                )
-                this.removeFile(file);
-            }
-        });
-
-        this.on('error', function(file, response) {
-            // console.log(file.previewElement, response)
-
-            if(response == "Upload canceled.") return
-
-            var spanError = Dropzone.createElement(`<span class="alert alert-danger">${file.name}</span>`);
-
-            file.previewElement.appendChild(spanError);
-            // $(file.previewElement).find('.dz-error-message').text(response.exception);
-            $(file.previewElement).find('.dz-error-message').text(response);
-            file.previewElement.classList.add("dz-error");
-
-            dtable.ajax.reload( 
-                function () {
-                    Swal.fire(
-                            'error!',
-                            'No Se ha subido el archivo.',
-                            'error'
-                        )
-                },false
-            );
-        })
-    },
-}
-
-var myDropzone = new Dropzone("#dropzone", opts);	
 
 });
 

@@ -4,15 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Model
+class Category_file extends Model
 {
+
+    protected $table = 'category_files';
     protected $fillable = [
-        'ruc', 'razonsocial', 'bandera','direccion','grupo','direccion','contrato','activo'
+        'nivel', 'nombre', 'id_categoria_referencia','detalle','activo'
     ];
 
 
     public function client(){   //cliente es como un perfil
         return $this->hasOne(Client::class);
     }
-    
 }

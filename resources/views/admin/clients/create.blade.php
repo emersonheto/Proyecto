@@ -7,54 +7,45 @@
    <div class="col-md-10 offset-md-1 bg-white card  " >
          <form  id="Form_cliente" action=" {{route('clients.store')}} " method="POST" class="was-validated m-5 " autocomplete="off" >
                @csrf 
-               {{-- <input type="hidden" name="_method" value="PATCH"> --}}
-               
                  <div class="form-row ">                   
                      <div class="form-group col-md-6">
                          <label for="ClientName">Ruc</label>
-                         <input type="text" name="ruc" class='form-control is-valid' id='ClientName' placeholder="Ruc del cliente"  required >
+                         <input type="text" name="ruc" class='form-control is-valid' id='ClientName' value="{{ old('ruc') }}" placeholder="Ruc del cliente"  required >
                          <div class="invalid-feedback">¡Debes de agregar un Ruc!</div>
                      </div>
 
-             {{-- REVISA        https://es.stackoverflow.com/questions/187507/problema-para-validar-un-registro-ya-insertado-en-mi-bd-con-ajax-laravel-5-2 --}}
-             
-             
-             
                    <div class="form-group col-md-6">
                        <label for="ClientName">Razon social </label>
-                       <input type="text" name="razonsocial" class='form-control is-valid' id='ClientName' placeholder="Razon Social"  required >
+                       <input type="text" name="razonsocial" class='form-control is-valid' id='ClientName' value="{{ old('razonsocial') }}" placeholder="Razon Social"  required >
                        <div class="invalid-feedback">¡Debes de agregar una Razon Social!</div>
                    </div>
                   
-             
                    <div class="form-group col-md-4">
                        <label for="ClientBandera">Bandera </label>
-                         <select class=" custom-select" name="bandera" id="Clientbandera" >
-                           <option value="primax">Primax</option>  
-                           <option value="repsol">Repsol</option>  
-                           <option value="pecsa">Pecsa</option>                
+                         <select class="custom-select" name="bandera" id="Clientbandera">
+                           <option value="Primax">Primax</option>  
+                           <option value="Repsol">Repsol</option>  
+                           <option value="Pecsa">Pecsa</option>                
                          </select>           
-                         {{-- <div class="invalid-feedback">¡Debes seleccionar una bandera!</div> --}}
                    </div>
                    <div class="form-group col-md-4 mb-3">
                        <label for="ClientDireccion">Direccion </label>
-                         <input type="text" name="direccion" class='form-control is-valid' id='ClientDireccion' placeholder="Direccion  AV. "  required >
+                         <input type="text" name="direccion" class='form-control is-valid' id='ClientDireccion' value="{{ old('direccion') }}" placeholder="Direccion AV." required >
                          <div class="invalid-feedback">¡Debes de agregar una direccion!</div>
                    </div>
              
                    <div class="form-group col-md-4 mb-3">
                        <label for="ClientGrupo">Grupo </label>
                          <select class="custom-select" name="grupo" id="ClientGrupo">
-                           <option value="primax">Grupo San ignacio</option>  
-                           <option value="repsol">Gazel</option>  
-                           <option value="pecsa">Irasa</option>                
+                           <option value="Grupo San ignacio">Grupo San ignacio</option>  
+                           <option value="Gazel">Gazel</option>  
+                           <option value="Irasa">Irasa</option>                
                          </select>   
                    </div>  
              
                 </div> 
                 {{-- AGREGANDO CONTACTO AL CLIENTE  --}}
-                  
-                 
+                
                   <fieldset class="col-md-12" style="                  
                      border: 1px solid #ddd !important;
                      margin: 0;
@@ -78,33 +69,45 @@
                         
                         <div class="panel panel-default">
                            <div class="card-body">                                
-                                 <div class=" col  text-center  mb-3" >
+                                <div class="col text-center  mb-3" >
                                    <button class="btn btn-outline-info " type="button" href="#" id="btn_add" ><i class="fas fa-plus-circle  fa-1x"></i>  AGREGAR CONTACTOS </button> 
                                 </div>
                                 <div class="inner" id="data_contacto">
+                                    <div class="form-row">
+                                        <div class="col-md-3 mb-3">
+                                            <label for="ClientNombre">Nombre</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="ClientCargo">Cargo</label>
+                                        </div>
+                                        <div class="col-md-3 mb-3">
+                                            <label for="ClientCorreo">Correo</label>
+                                        </div>
+                                        <div class="col-md-2 mb-3">
+                                            <label for="ClientTelefono">Telefono</label>
+                                        </div>
+                                        <div class="col-md-1 mt-4 mb-1">
+                                        </div>
+                                    </div>
                                     <div class="form-row row_contact">                      
-                                       <div class=" col-md-3 mb-3">
-                                             <label for="ClientNombre">Nombre </label>
+                                       <div class="col-md-3 mb-3">
                                              <input type="text"  class='form-control is-valid _nombre' id='ClientNombre' placeholder="Nombre "  required >                           
                                        </div>                        
-                                       <div class=" col-md-3">
-                                         <label for="ClientCargo">Cargo </label>
+                                       <div class="col-md-3">
                                          <select class=" custom-select _cargo"  id="ClientCargo" >
                                             <option value="administrador">Administrador</option>  
                                             <option value="gerente">Gerente</option>  
                                             <option value="tecnico">Tecnico</option>                
                                          </select> 
                                        </div>
-                                       <div class=" col-md-3 mb-3">
-                                         <label for="ClientCorreo">Correo </label>
+                                       <div class="col-md-3 mb-3">
                                          <input type="mail"  class='form-control is-valid _correo' id='ClientCorreo' placeholder="example@gmail.com "  required >                        
                                        </div>
-                                       <div class=" col-md-2 mb-3">
-                                             <label for="ClientTelefono">Telefono </label>
+                                       <div class="col-md-2 mb-3">
                                              <input type="text"  class='form-control is-valid _telefono' id='ClientTelefono' placeholder="999999999 "  required >
                                           </div>
-                                       <div class=" col-md-1 mt-4 mb-1"  >
-                                         <button class="btn btn-outline-info  quitar_fill " type="button" href="#"><i class="fas fa-trash  fa-1x"></i> </button>
+                                       <div class="col-md-1">
+                                         <button class="btn btn-outline-info quitar_fill " type="button" href="#"><i class="fas fa-trash  fa-1x"></i> </button>
                                        </div>
                                     </div> 
                                  </div>                              
@@ -148,6 +151,15 @@
          }
          list.push({nombre,cargo,correo,telefono});         
       }
+
+      if( list.length == 0 ){
+            Swal.fire(
+                'Error!',
+                'Debe ingresar al menos un contacto.',
+                'error'
+            )
+            return false;
+        }
       
       input.val(JSON.stringify(list));
       return true;
