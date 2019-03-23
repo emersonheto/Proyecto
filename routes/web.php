@@ -33,7 +33,26 @@ Route::get('files','FilesController@getData')->name('file.gettabla');
 Route::get('pruebita','FilesController@prueba')->name('file.prueba');
 Route::get('pruebita2',function(){
     //$list=App\Category_file::all();
-    return view ('admin.layouts.app2');
+
+
+        $nameCarpeta='C:\laragon\www\Proyecto\storage\app\public\dataaa\\';     
+        $dato = new SplFileInfo($nameCarpeta);
+
+        echo "fecha de modificacion => ". date("F d Y H:i:s.", $dato->getMTime()) . "</br>";
+        echo "Obtiene el i-nodo de el cambio de tiempo=> ". date("F d Y H:i:s.", $dato->getCTime()) . "</br>";
+        echo "Obtiene la hora del último acceso al fichero => ". date("F d Y H:i:s.", $dato->getATime()) . "</br>";
+  
+        
+        echo "Obtiene la ruta sin el nombre de fichero => ". $dato->getPath() . "</br>";
+        echo " Obtiene la ruta de un fichero => ". $dato->getPathname() . "</br>";
+        echo " obtener el nombre base del archivo=> ". $dato->getBasename() . "</br>";
+        echo " verificar que el objeto SplFileInfo sea un archivo o no=> ". $dato->isFile() . "</br>";
+        echo " obtener la extensión del archivo=> ". $dato->getExtension() . "</br>";
+        echo `<br> `;
+        echo "La fecha de modificación del fichero es '" . date ("F d Y H:i:s.", filemtime($nameCarpeta)) . "'";
+
+
+    // return view ('admin.layouts.app2');
 })->name('file.prueba2');
 
 //ROLES

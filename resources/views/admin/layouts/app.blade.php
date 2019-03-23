@@ -18,19 +18,19 @@
     <link href="{{ asset('css/app.css')}}" rel="stylesheet">
     <link href="{{ asset('css/admin.css')}}" rel="stylesheet">
     <link href="{{ asset('css/dropzone.css')}}" rel="stylesheet">
-
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 </head>
 
 <body>
+    
     <header>
 <!-- NAVBAR SUPERIOR-->
 <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top alert-home">
         <a class="navbar-brand" href="{{ route('clients.index') }}">
             <img src="{{asset('img/solu.jpg')}}" width="30" height="30" class="d-inline-block align-top" alt="">
-            {{-- <img src="{{asset('img/logo.svg')}}" width="30" height="30" class="d-inline-block align-top" alt=""> --}}
             <b class="text-primary">SOLUGRIFOS</b> <small><b> - Plan</b>  <b class="text-success">VERDE</b></small>
         </a>
 
@@ -41,12 +41,6 @@
 
         <div class="collapse navbar-collapse" id="navbarBS">
             <ul class="navbar-nav ml-auto">
-                {{-- <li class="nav-item active">
-                    <a class="nav-link" href="{{ route('home')}}">Inicio <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Características</a>
-                </li> --}}
                 <li class="nav-item" style="margin: 0 10px 0 10px;" >
                     <div class="dropdown">
                         <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -111,37 +105,10 @@
                                     </div>
                                 </div>   
                             </div>
-                            {{-- <form class="px-4 py-3">
-                                <div class="form-group">
-                                <label for="exampleDropdownFormEmail1">Email address</label>
-                                <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
-                                </div>
-                                <div class="form-group">
-                                <label for="exampleDropdownFormPassword1">Password</label>
-                                <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
-                                </div>
-                                <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="dropdownCheck">
-                                <label class="form-check-label" for="dropdownCheck">
-                                    Remember me
-                                </label>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Sign in</button>
-                            </form> --}}
-                                </form>
+                        </form>
                             <div class="dropdown-divider"></div>
-                            {{-- <div class="profile-usertitle">
-                                    <div class="profile-usertitle-name text-center"> {{ Auth::User()->name }} </div>
-                                    <div class="profile-usertitle-status text-center">{{ Auth::User()->email }}</div>
-                                    <div class="profile-usertitle-status text-center">{{ Auth::User()->rol }}</div>
-                                </div> --}}
+                            
                             <div class="row">
-                                
-                                    <div class="col-md-2">
-                                        <!-- <img src=" {{asset('img')}}/{{Auth::User()->image}}" class="img-responsive" style="border-radius: 50%;"
-                                            alt="" width="70%"> -->
-                                    </div>
-
                                     <div class="col-md-8">
                                         <div class="row">
                                             <div class="col-md-12">
@@ -176,9 +143,381 @@
     <div class="wrapper">
 
         
+        <nav id="sidebar" style="background-color:#e9ecef;">
+            {{-- Estilos de arbolito menu --}}
+            <style>
+                #treeMenu .tree {
+                padding: 5px 0;
+                font-size: 13px;
+                }
 
+                #treeMenu .tree::after {
+                content: '';
+                display: block;
+                clear: left;
+                }
 
-        <!-- aqui va el menu-->
+                #treeMenu .tree div {
+                clear: left;
+                }
+
+                #treeMenu input[type="checkbox"] {
+                position: absolute;
+                left: -9999px;
+                }
+
+                #treeMenu label, #treeMenu a {
+                display: block;
+                float: left;
+                clear: left;
+                position: relative;
+                margin-left: 25px;
+                padding: 5px;
+                border-radius: 5px;
+                color: #5c5d5e;
+                text-decoration: none;
+                cursor: pointer;
+                }
+
+                #treeMenu>.tree>div>.sub>div>label, #treeMenu>.tree>div>.sub>div>input {
+                    padding: 1px;
+                }
+
+                #treeMenu label::before, #treeMenu a::before {
+                display: block;
+                position: absolute;
+                /* top: 6px; */
+                left: -25px;
+                font-family: 'FontAwesome';
+                }
+
+                #treeMenu label::before {
+                    content:"\f114"; /* closed folder &#xf003; */
+                }
+
+                #treeMenu input:checked + label::before {
+                    content:"\f115";
+                    font-family: FontAwesome;
+                    font-style: normal;
+                    font-weight: normal;
+                    text-decoration: inherit
+                }
+
+                #treeMenu a.sub::before {
+                content: '\f068';
+                }
+
+                #treeMenu input:focus + label, #treeMenu a:focus {
+                outline: none;
+                background-color: #b9c3c9;
+                }
+
+                #treeMenu .sub {
+                display: none;
+                float: left;
+                margin-left: 15px;
+                }
+
+                #treeMenu input:checked ~ .sub {
+                display: block;
+                }
+
+                #treeMenu input[type="reset"] {
+                display: block;
+                width: 100%;
+                padding: 10px;
+                border: none;
+                border-radius: 10px;
+                color: #e8ebed;
+                background-color: #6b7c87;
+                font-family: inherit;
+                font-size: .9em;
+                cursor: pointer;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                }
+
+                #treeMenu input[type="reset"]:focus {
+                outline: none;
+                box-shadow: 0 0 0 4px #b9c3c9;
+                }
+            </style>
+            {{-- //Estilos de arbolito menu --}}
+                <div class="container" style="margin-top: 100px;">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <div class="file-manager font-weight-bold" style="color:#343a40;">
+                                <div class="hr-line-dashed"></div>
+                                {{-- modal crear carpeta  --}}
+                                <button class="btn btn-outline-primary btn-block" onclick="CrearCarpet();"><i class="fa fa-plus"></i> <b>Subir Archivo</b></button>
+                                    <script>
+                                        function CrearCarpet(){
+                                            Swal.fire({
+                                            title: 'Crear Carpeta',
+                                            input: 'text',
+                                            inputPlaceholder: 'Nombre de carpeta',
+                                            confirmButtonColor: '#3085d6',
+                                            showCancelButton: true,
+                                            confirmButtonText: 'Crear'
+                                            })
+                                            
+                                        }
+                                    </script>
+                                {{-- //modal crear carpeta  --}}
+
+                                <div class="hr-line-dashed"></div>
+                                <br>
+                                <h5>Categorias</h5>
+                                {{-- Arbolito --}}
+                                <form id="treeMenu">
+                                    <div class="tree">
+                                      <div class="">
+                                        <input id="n-0" type="checkbox">
+                                        <label for="n-0">Gestión Ambiental</label>
+                                        <div class="sub">
+                                            <div class="">
+                                                <input id="n-0-1" type="checkbox">
+                                                <label for="n-0-1">Informe de Monitoreo</label>
+                                                <div class="sub">
+                                                    {{-- ARCHIVOS SI SE MUESTRAN --}}
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <input id="n-0-2" type="checkbox">
+                                                <label for="n-0-2">Informe Ambiental Anual</label>
+                                                <div class="sub">
+                                                    {{-- ARCHIVOS SI SE MUESTRAN --}}
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <input id="n-0-3" type="checkbox">
+                                                <label for="n-0-3">Declaración de RRSS</label>
+                                                <div class="sub">
+                                                    {{-- ARCHIVOS SI SE MUESTRAN --}}
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <input id="n-0-4" type="checkbox">
+                                                <label for="n-0-4">Manifiestos de manejo de RRSS</label>
+                                                <div class="sub">
+                                                    {{-- ARCHIVOS SI SE MUESTRAN --}}
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <input id="n-0-5" type="checkbox">
+                                                <label for="n-0-5">Registro de generación de RRSS</label>
+                                                <div class="sub">
+                                                    {{-- ARCHIVOS SI SE MUESTRAN --}}
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <input id="n-0-6" type="checkbox">
+                                                <label for="n-0-6">Registro de Incidentes de Fugas y Derrames</label>
+                                                <div class="sub">
+                                                    {{-- ARCHIVOS SI SE MUESTRAN --}}
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <input id="n-0-7" type="checkbox">
+                                                <label for="n-0-7">Instrumentos de Gestión Ambiental</label>
+                                                <div class="sub">
+                                                    {{-- ARCHIVOS SI SE MUESTRAN --}}
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <input id="n-0-8" type="checkbox">
+                                                <label for="n-0-8">Certificados de Capacitación</label>
+                                                <div class="sub">
+                                                    <div class="">
+                                                        <input id="n-0-8-1" type="checkbox">
+                                                        <label for="n-0-8-1">Tema A</label>
+                                                        <div class="sub">
+                                                            {{-- ARCHIVOS SI SE MUESTRAN --}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="">
+                                                        <input id="n-0-8-2" type="checkbox">
+                                                        <label for="n-0-8-2">Tema B</label>
+                                                        <div class="sub">
+                                                            {{-- ARCHIVOS SI SE MUESTRAN --}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div>
+                                        <input id="n-1" type="checkbox">
+                                        <label for="n-1">Segur. Salud en el Trabajo</label>
+                                        <div class="sub">
+                                            <div>
+                                                <input id="n-1-1" type="checkbox">
+                                                <label for="n-1-1">Sistema de SST</label>
+                                                <div class="sub">
+                                                    <div class="">
+                                                        <input id="n-0-1-1" type="checkbox">
+                                                        <label for="n-0-1-1">Plan anual</label>
+                                                        <div class="sub">
+                                                        </div>
+                                                    </div>
+                                                    <div class="">
+                                                        <input id="n-0-1-2" type="checkbox">
+                                                        <label for="n-0-1-2">Programa anual</label>
+                                                        <div class="sub">
+                                                        </div>
+                                                    </div>
+                                                    <div class="">
+                                                        <input id="n-0-1-3" type="checkbox">
+                                                        <label for="n-0-1-3">Mapa de riesgos</label>
+                                                        <div class="sub">
+                                                        </div>
+                                                    </div>
+                                                    <div class="">
+                                                        <input id="n-0-1-4" type="checkbox">
+                                                        <label for="n-0-1-4">IPER-C</label>
+                                                        <div class="sub">
+                                                        </div>
+                                                    </div>
+                                                    <div class="">
+                                                        <input id="n-0-1-5" type="checkbox">
+                                                        <label for="n-0-1-5">Política</label>
+                                                        <div class="sub">
+                                                        </div>
+                                                    </div>
+                                                    <div class="">
+                                                        <input id="n-0-1-6" type="checkbox">
+                                                        <label for="n-0-1-6">Objetivos y metas</label>
+                                                        <div class="sub">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <input id="n-1-2" type="checkbox">
+                                                <label for="n-1-2">Certificados de Capacitación</label>
+                                                <div class="sub">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <input id="n-1-3" type="checkbox">
+                                                <label for="n-1-3">Registros</label>
+                                                <div class="sub">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <input id="n-1-4" type="checkbox">
+                                                <label for="n-1-4">Formato de Charlas</label>
+                                                <div class="sub">
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div>
+                                        <input id="n-2" type="checkbox">
+                                        <label for="n-2">Operatividad</label>
+                                        <div class="sub">
+                                            <div>
+                                                <input id="n-2-1" type="checkbox">
+                                                <label for="n-2-1">Informe PDJ</label>
+                                                <div class="sub">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <input id="n-2-2" type="checkbox">
+                                                <label for="n-2-2">Instalaciones eléctricas</label>
+                                                <div class="sub">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <input id="n-2-3" type="checkbox">
+                                                <label for="n-2-3">Parada de emergencia</label>
+                                                <div class="sub">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <input id="n-2-4" type="checkbox">
+                                                <label for="n-2-4">Pozos a Tierra</label>
+                                                <div class="sub">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <input id="n-2-5" type="checkbox">
+                                                <label for="n-2-5">Detectores de Humo</label>
+                                                <div class="sub">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <input id="n-2-6" type="checkbox">
+                                                <label for="n-2-6">Luces de Emergencia</label>
+                                                <div class="sub">
+                                                </div>
+                                                </div>
+                                            <div>
+                                                <input id="n-2-7" type="checkbox">
+                                                <label for="n-2-7">Sensores de Fuga de GLP</label>
+                                                <div class="sub">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <input id="n-2-8" type="checkbox">
+                                                <label for="n-2-8">Protección Catódica</label>
+                                                <div class="sub">
+                                                </div>
+                                                </div>
+                                            <div>
+                                                <input id="n-2-9" type="checkbox">
+                                                <label for="n-2-9">Certificados de Entrenamiento</label>
+                                                <div class="sub">
+                                                </div>
+                                                </div>
+                                            <div>
+                                                <input id="n-2-10" type="checkbox">
+                                                <label for="n-2-10">Informe de levantamiento técnico</label>
+                                                <div class="sub">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <input id="n-2-11" type="checkbox">
+                                                <label for="n-2-11">Procedimiento de Limpieza y Mantenimiento de Tanques</label>
+                                                <div class="sub">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <input id="n-2-12" type="checkbox">
+                                                <label for="n-2-12">Constancia de Asesor de Prevención de Riesgos</label>
+                                                <div class="sub">
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                      </div>
+                                      <div>
+                                        <input id="n-3" type="checkbox">
+                                        <label for="n-3">OTROS</label>
+                                        <div class="sub">
+                                          {{-- <a href="#link">Healing Salve</a>
+                                          <a href="#link">Serra Angel</a> --}}
+                                        </div>
+                                      </div>
+                                      <div>
+                                        <input id="n-4" type="checkbox">
+                                        <label for="n-4">Reporte Mensual</label>
+                                        <div class="sub">
+                                          <div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <input type="reset" value="Cerrar todo">
+                                  </form>
+                                {{-- //fin arbolito --}}
+
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav> 
 
 
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
